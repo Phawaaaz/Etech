@@ -1,4 +1,10 @@
 import { useState } from "react";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useNavigate,
+} from "react-router-dom";
 import avatar from "./assets/avatar.svg";
 import textIcon from "./assets/text-icon.svg";
 import audioIcon from "./assets/audio-icon.svg";
@@ -6,6 +12,7 @@ import imageIcon from "./assets/image-icon.svg";
 import interactiveIcon from "./assets/interactive-icon.svg";
 import videoIcon from "./assets/video-icon.svg";
 import arrowIcon from "./assets/arrow-right.svg";
+import GenerationView from "./GenerationView.jsx";
 
 const formatOptions = [
   { id: "text", label: "Text", icon: textIcon },
@@ -17,21 +24,30 @@ const formatOptions = [
 
 function App() {
   return (
-    <div className="min-h-screen text-white flex items-center justify-center relative font-sans p-6">
-      <div className="w-full max-w-5xl flex flex-col items-center">
-        <Header />
-        <main className="w-full flex flex-col items-center mt-20">
-          <Dashboard />
-        </main>
+    <Router>
+      <div className="min-h-screen text-white flex items-center justify-center relative font-sans p-6">
+        <div className="w-full max-w-5xl flex flex-col items-center">
+          <Header />
+          <main className="w-full flex flex-col items-center mt-20">
+            <Routes>
+              <Route path="/" element={<Dashboard />} />
+              <Route path="/generate" element={<GenerationView />} />
+            </Routes>
+          </main>
+        </div>
       </div>
-    </div>
+    </Router>
   );
 }
 
 function Header() {
+  const navigate = useNavigate();
   return (
     <header className="flex items-center justify-between w-full absolute top-0 left-0 p-6">
-      <div className="bg-black text-white font-bold text-xl px-4 py-2 rounded-lg border border-gray-800 tracking-wider">
+      <div
+        onClick={() => navigate("/")}
+        className="bg-black text-white font-bold text-xl px-4 py-2 rounded-lg border border-gray-800 tracking-wider cursor-pointer select-none"
+      >
         E-A.I
       </div>
       <button className="h-12 w-12 rounded-full overflow-hidden border-2 border-transparent hover:border-gray-500 transition-all">
@@ -56,14 +72,15 @@ const OptionButton = ({ label, icon, isSelected, onClick }) => (
   </button>
 );
 
-const NextButton = ({ disabled }) => (
+const NextButton = ({ disabled, onClick }) => (
   <button
     disabled={disabled}
-    className={`mt-12  transition-all duration-300  
+    onClick={onClick}
+    className={`mt-12 p-4  
       ${
         disabled
-          ? "bg-gray-800 text-gray-600 cursor-not-allowed opacity-40"
-          : "bg-black text-white hover:bg-gray-900 shadow-[0_0_15px_rgba(255,255,255,0.1)] hover:scale-110 cursor-pointer"
+          ? "text-white cursor-not-allowed opacity-40"
+          : "text-white  hover:scale-110 cursor-pointer"
       }`}
   >
     <img src={arrowIcon} alt="Next Step" className="w-10 h-10" />
@@ -72,6 +89,7 @@ const NextButton = ({ disabled }) => (
 
 function Dashboard() {
   const [selectedOption, setSelectedOption] = useState(null);
+  const navigate = useNavigate();
 
   return (
     <div className="flex flex-col items-center w-full">
@@ -79,7 +97,7 @@ function Dashboard() {
         What do you need?
       </h1>
 
-      <div className="flex flex-wrap justify-center gap-12 max-w-2xl">
+      <div className="flex flex-wrap justify-center gap-4 max-w-2xl">
         {formatOptions.map((option) => (
           <OptionButton
             key={option.id}
@@ -91,7 +109,10 @@ function Dashboard() {
         ))}
       </div>
 
-      <NextButton disabled={!selectedOption} />
+      <NextButton
+        disabled={!selectedOption}
+        onClick={() => navigate("/generate")}
+      />
     </div>
   );
 }
