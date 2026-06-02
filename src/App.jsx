@@ -13,6 +13,7 @@ import interactiveIcon from "./assets/interactive-icon.svg";
 import videoIcon from "./assets/video-icon.svg";
 import arrowIcon from "./assets/arrow-right.svg";
 import GenerationView from "./GenerationView.jsx";
+import TopicSelectionView from "./TopicSelectionView.jsx";
 
 const formatOptions = [
   { id: "text", label: "Text", icon: textIcon },
@@ -32,6 +33,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Dashboard />} />
               <Route path="/generate" element={<GenerationView />} />
+              <Route path="/select-topic" element={<TopicSelectionView />} />
             </Routes>
           </main>
         </div>
