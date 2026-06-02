@@ -5,9 +5,8 @@ import audioIcon from "./assets/audio-icon.svg";
 import imageIcon from "./assets/image-icon.svg";
 import interactiveIcon from "./assets/interactive-icon.svg";
 import videoIcon from "./assets/video-icon.svg";
-import arrowIcon from "./assets/arrow-right.svg"; // Make sure to export/import your arrow asset
+import arrowIcon from "./assets/arrow-right.svg";
 
-// 1. FIXED: Added unique IDs, separate labels, and proper icon references to match "MacBook Air - 8.png"
 const formatOptions = [
   { id: "text", label: "Text", icon: textIcon },
   { id: "audio", label: "Audio", icon: audioIcon },
@@ -18,7 +17,6 @@ const formatOptions = [
 
 function App() {
   return (
-    // FIXED: Layout styles added to handle full-viewport sizing and dark backdrop theme
     <div className="min-h-screen text-white flex items-center justify-center relative font-sans p-6">
       <div className="w-full max-w-5xl flex flex-col items-center">
         <Header />
@@ -43,7 +41,6 @@ function Header() {
   );
 }
 
-// 2. FIXED: Prop renamed to lowercase 'icon' and rendered explicitly as an image element
 const OptionButton = ({ label, icon, isSelected, onClick }) => (
   <button
     onClick={onClick}
@@ -82,11 +79,10 @@ function Dashboard() {
         What do you need?
       </h1>
 
-      {/* Container wraps beautifully dynamically adjusting lines */}
       <div className="flex flex-wrap justify-center gap-12 max-w-2xl">
         {formatOptions.map((option) => (
           <OptionButton
-            key={option.id} // FIXED: Unique IDs ensure React tracks rendering perfectly
+            key={option.id}
             label={option.label}
             icon={option.icon}
             isSelected={selectedOption === option.id}
