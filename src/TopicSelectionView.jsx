@@ -14,7 +14,7 @@ export default function TopicSelectionView() {
           className="w-full bg-transparent text-xl font-medium focus:outline-none"
         />
       </div>
-      <div className="w-full bg-white text-black px-6 py-4 rounded-full flex items-center relative shadow-lg">
+      <div className="w-full bg-white text-black px-6 py-4 rounded-full flex items-center relative shadow-lg mb-20">
         <label className="text-xl font-bold mr-3 select-none">Level:</label>
         <select
           value={level}
@@ -30,6 +30,19 @@ export default function TopicSelectionView() {
           &#9660;
         </div>
       </div>
+
+      <button
+        type="submit"
+        disabled={!topic.trim() || !level}
+        className={`px-12 py-3 rounded-full font-bold text-xl border border-transparent transition-all duration-300
+            ${
+              !topic.trim() || !level
+                ? "bg-black text-zinc-400 cursor-not-allowed"
+                : "bg-black text-white hover:bg-zinc-900 shadow-[0_5px_15px_rgba(0,0,0,0.1)] hover:scale-105 cursor-pointer"
+            }`}
+      >
+        Generate
+      </button>
     </form>
   );
 }
