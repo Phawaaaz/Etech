@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
-import { navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function GenerationView() {
   const [prompt, setPrompt] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const body = document.body;
