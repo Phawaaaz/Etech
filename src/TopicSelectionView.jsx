@@ -5,7 +5,7 @@ export default function TopicSelectionView() {
   const [level, setLevel] = useState("");
   return (
     <form>
-      <div className="w-full bg-white text-black px-6 py-4 rounded-full flex items-center shadow-lg">
+      <div className="w-150 bg-white text-black px-6 py-4 rounded-full flex items-center shadow-lg mb-20">
         <label className="text-xl font-bold mr-3 select-none">Topic:</label>
         <input
           type="text"
@@ -26,8 +26,8 @@ export default function TopicSelectionView() {
           <option value="intermediate">Intermediate</option>
           <option value="advanced">Advanced</option>
         </select>
-        <div className="absolute right-6 pointer-events-none text-1xl font-black">
-          ▼
+        <div className="absolute right-6 pointer-events-none text-2xl font-black">
+          &#9660;
         </div>
       </div>
     </form>
