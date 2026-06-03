@@ -14,6 +14,7 @@ import videoIcon from "./assets/video-icon.svg";
 import arrowIcon from "./assets/arrow-right.svg";
 import GenerationView from "./GenerationView.jsx";
 import TopicSelectionView from "./TopicSelectionView.jsx";
+import Loading from "./Loading.jsx";
 
 const formatOptions = [
   { id: "text", label: "Text", icon: textIcon },
@@ -34,6 +35,7 @@ function App() {
               <Route path="/" element={<Dashboard />} />
               <Route path="/generate" element={<GenerationView />} />
               <Route path="/select-topic" element={<TopicSelectionView />} />
+              <Route path="/loading" element={<Loading />} />
             </Routes>
           </main>
         </div>
