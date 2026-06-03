@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { navigate } from "react-router-dom";
 
 export default function GenerationView() {
   const [prompt, setPrompt] = useState("");
@@ -16,7 +17,9 @@ export default function GenerationView() {
   const handleGenerate = (e) => {
     e.preventDefault();
     if (!prompt.trim()) return;
+
     console.log("Triggering generation engine with prompt:", prompt);
+    navigate("/select-topic");
   };
 
   return (
