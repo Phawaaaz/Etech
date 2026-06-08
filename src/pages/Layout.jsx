@@ -3,7 +3,7 @@ import Header from "../components/Header";
 
 export default function Layout() {
   const { pathname } = useLocation();
-  const isDark = pathname === "/";
+  const isDark = pathname === "/dashboard";
 
   return (
     <div
