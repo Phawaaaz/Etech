@@ -5,7 +5,7 @@ export default function HeroSection() {
   const navigate = useNavigate();
   const [topic, setTopic] = useState("");
   return (
-    <section className="w-full max-w-7xl mx-auto px-6 pt-12 pb-24 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+    <section className="w-full max-w-7xl mx-auto px-6 pt-12 pb-18 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
       <div className="lg:col-span-5 flex flex-col items-start gap-6">
         <h1 className="text-5xl md:text-6xl font-extrabold tracking-tight text-white leading-[1.15]">
           Generate complete courses with AI
