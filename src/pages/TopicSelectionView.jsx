@@ -1,12 +1,63 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+
 import GenerateButton from "../components/GenerateButton";
 
 export default function TopicSelectionView() {
   const [topic, setTopic] = useState("");
   const [level, setLevel] = useState("");
+  const navigate = useNavigate();
+
+  const [isLoading, setIsLoading] = useState(false);
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    let timer;
+    if (isLoading) {
+      timer = setInterval(() => {
+        setProgress((oldProgress) => {
+          if (oldProgress >= 100) {
+            clearInterval(timer);
+            return 100;
+          }
+
+          const diff = Math.floor(Math.random() * 12) + 6;
+          return Math.min(oldProgress + diff, 100);
+        });
+      }, 180);
+    }
+
+    return () => {
+      if (timer) clearInterval(timer);
+    };
+  }, [isLoading]);
+
+  useEffect(() => {
+    if (progress === 100) {
+      console.log("Generation process completed. Ready to redirect.");
+
+      // Once complete, route to your final generation output screen here:
+      navigate("/results");
+    }
+  }, [progress, navigate]);
+
+  const handleFinalGenerate = (e) => {
+    e.preventDefault();
+    if (!topic.trim() || !level) return;
+
+    console.log("Initializing generation context pipeline data:", {
+      topic,
+      level,
+    });
+    // Fires the dynamic layout interface overlay element on the spot
+    setIsLoading(true);
+  };
 
   return (
-    <form className="flex flex-col items-center w-full max-w-3xl px-4">
+    <form
+      onSubmit={handleFinalGenerate}
+      className="flex flex-col items-center w-full max-w-3xl px-4"
+    >
       <div className="w-full bg-white text-black px-6 py-4 rounded-full flex items-center shadow-lg mb-20">
         <label className="text-xl font-bold mr-3 select-none">Topic:</label>
         <input
