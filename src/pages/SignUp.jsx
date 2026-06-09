@@ -13,16 +13,18 @@ export default function SignUp() {
         ← Back to Home
       </button>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8 w-full">
-        {formFields.map((field) => (
-          <SignUpForm
-            key={field.name}
-            label={field.label}
-            name={field.name}
-            type={field.type}
-          />
-        ))}
-      </div>
+      <form className="w-full flex flex-col items-center gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8 w-full">
+          {formFields.map((field) => (
+            <SignUpForm
+              key={field.name}
+              label={field.label}
+              name={field.name}
+              type={field.type}
+            />
+          ))}
+        </div>
+      </form>
     </div>
   );
 }
