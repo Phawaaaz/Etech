@@ -1,3 +1,4 @@
+import CTASection from "../components/CTASection";
 import FeaturesSection from "../components/FeatureSection";
 import HeroSection from "../components/HeroSection";
 import HowItWorks from "../components/HowItWorks";
@@ -10,6 +11,7 @@ export default function LandingPage() {
       <HeroSection />
       <HowItWorks />
       <FeaturesSection />
+      <CTASection />
     </div>
   );
 }
