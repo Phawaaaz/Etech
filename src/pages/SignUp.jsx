@@ -23,6 +23,17 @@ export default function SignUp() {
     (field) => field.trim() !== "",
   );
 
+  const handleSignUpSubmit = (e) => {
+    e.preventDefault();
+    if (formData.password !== formData.confirmPassword) {
+      alert("Passwords do not match!");
+      return;
+    }
+    console.log("Form registration context payload data ready:", formData);
+    // Route into your user onboarding or dashboard stream here:
+    // navigate("/dashboard");
+  };
+
   return (
     <div className="w-full max-w-4xl mx-auto px-4 flex flex-col items-center animate-fadeIn font-sans">
       <button
@@ -32,7 +43,10 @@ export default function SignUp() {
         ← Back to Home
       </button>
 
-      <form className="w-full flex flex-col items-center gap-12">
+      <form
+        onSubmit={handleSignUpSubmit}
+        className="w-full flex flex-col items-center gap-12"
+      >
         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8 w-full">
           {formFields.map((field) => (
             <SignUpForm
