@@ -4,6 +4,7 @@ import Dashboard from "./pages/Dashboard";
 import GenerationView from "./pages/GenerationView";
 import TopicSelectionView from "./pages/TopicSelectionView";
 import LandingPage from "./pages/LandingPage";
+import SignUp from "./pages/SignUp";
 
 export default function App() {
   return (
@@ -14,6 +15,7 @@ export default function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/generate" element={<GenerationView />} />
           <Route path="/select-topic" element={<TopicSelectionView />} />
+          <Route path="/sign-up" element={<SignUp />} />
         </Route>
       </Routes>
     </Router>
