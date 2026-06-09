@@ -21,9 +21,20 @@ export default function Navbar() {
       </nav>
 
       <div className="flex items-center gap-6">
-        <button className="text-white text-lg font-bold hover:text-gray-300 transition-colors cursor-pointer">
-          <span onClick={() => navigate("/login")}>Login</span>/{" "}
-          <span onClick={() => navigate("/sign-up")}>Sign Up</span>
+        <button className=" text-lg font-bold hover:text-gray-300 transition-colors">
+          <span
+            className="cursor-pointer hover:text-[#4C1D95] transition-colors"
+            onClick={() => navigate("/login")}
+          >
+            Login
+          </span>
+          /{" "}
+          <span
+            className="cursor-pointer hover:text-[#4C1D95] transition-colors"
+            onClick={() => navigate("/sign-up")}
+          >
+            Sign Up
+          </span>
         </button>
         <button
           onClick={() => navigate("/generate")}
