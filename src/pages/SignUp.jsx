@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import SignUpForm from "../components/SignUpForm";
+import formFields from "../data/formFields";
 
 export default function SignUp() {
   const navigate = useNavigate();
@@ -12,7 +13,16 @@ export default function SignUp() {
         ← Back to Home
       </button>
 
-      <SignUpForm />
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8 w-full">
+        {formFields.map((field) => (
+          <SignUpForm
+            key={field.name}
+            label={field.label}
+            name={field.name}
+            type={field.type}
+          />
+        ))}
+      </div>
     </div>
   );
 }
