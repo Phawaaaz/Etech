@@ -6,11 +6,11 @@ export default function HeroSection() {
   const [topic, setTopic] = useState("");
   return (
     <section className="w-full max-w-7xl mx-auto px-6 pt-12 pb-18 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-      <div className="lg:col-span-5 flex flex-col items-start gap-6">
-        <h1 className="text-5xl md:text-6xl font-extrabold tracking-tight text-white leading-[1.15]">
+      <div className="lg:col-span-5 flex flex-col items-start gap-6 text-left">
+        <h3 className="text-5xl md:text-6xl font-extrabold tracking-tight text-white">
           Generate complete courses with AI
-        </h1>
-        <p className="text-gray-400 text-lg md:text-xl max-w-md font-medium leading-relaxed">
+        </h3>
+        <p className="text-white text-lg md:text-xl max-w-md font-medium">
           Describe what you want to learn and get a personalized lesson in
           seconds.
         </p>
