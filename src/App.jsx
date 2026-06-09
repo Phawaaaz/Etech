@@ -15,8 +15,8 @@ export default function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/generate" element={<GenerationView />} />
           <Route path="/select-topic" element={<TopicSelectionView />} />
-          <Route path="/sign-up" element={<SignUp />} />
         </Route>
+        <Route path="/sign-up" element={<SignUp />} />
       </Routes>
     </Router>
   );
