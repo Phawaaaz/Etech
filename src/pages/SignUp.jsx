@@ -19,6 +19,10 @@ export default function SignUp() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  const isFormValid = Object.values(formData).every(
+    (field) => field.trim() !== "",
+  );
+
   return (
     <div className="w-full max-w-4xl mx-auto px-4 flex flex-col items-center animate-fadeIn font-sans">
       <button
@@ -42,7 +46,18 @@ export default function SignUp() {
           ))}
         </div>
 
-        <button type="submit">Sign up</button>
+        <button
+          type="submit"
+          disabled={!isFormValid}
+          className={`px-14 py-3.5 rounded-xl font-bold text-xl tracking-wide transition-all duration-300 mt-4 border-2 border-transparent
+            ${
+              !isFormValid
+                ? "bg-white/20 text-zinc-500 cursor-not-allowed"
+                : "bg-white text-black hover:bg-transparent hover:text-white hover:border-white shadow-[0_5px_20px_rgba(255,255,255,0.05)] scale-100 hover:scale-105 active:scale-95 cursor-pointer"
+            }`}
+        >
+          Sign up
+        </button>
       </form>
     </div>
   );
