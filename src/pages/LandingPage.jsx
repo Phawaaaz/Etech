@@ -1,3 +1,4 @@
+import FeaturesSection from "../components/FeatureSection";
 import HeroSection from "../components/HeroSection";
 import HowItWorks from "../components/HowItWorks";
 import Navbar from "../components/Navbar";
@@ -8,6 +9,7 @@ export default function LandingPage() {
       <Navbar />
       <HeroSection />
       <HowItWorks />
+      <FeaturesSection />
     </div>
   );
 }
