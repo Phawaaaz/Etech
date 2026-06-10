@@ -5,10 +5,10 @@ export default function Profile() {
   const navigate = useNavigate();
 
   const menuItems = [
-    { id: "recents", label: "Recents" },
-    { id: "settings", label: "Settings" },
-    { id: "test-history", label: "Test History" },
-    { id: "privacy", label: "Privacy" },
+    { id: "recents", label: "Recents", path: "/recents" },
+    { id: "settings", label: "Settings", path: "/settings" },
+    { id: "test-history", label: "Test History", path: "/test-history" },
+    { id: "privacy", label: "Privacy", path: "/privacy" },
   ];
 
   const handleLogout = () => {
@@ -52,6 +52,7 @@ export default function Profile() {
           {menuItems.map((item) => (
             <div
               key={item.id}
+              onClick={() => item.path}
               className="flex items-center w-full py-6 border-b border-[#1A1D2D] hover:bg-white/[0.02] cursor-pointer transition-colors px-4 group"
             >
               <div className="w-12 h-12 bg-white rounded-full mr-6 flex-shrink-0 flex items-center justify-center transition-transform group-hover:scale-105 shadow-md" />
