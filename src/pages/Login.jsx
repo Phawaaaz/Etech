@@ -26,6 +26,13 @@ export default function Login() {
                 type={passwordField.type}
               />
             )}
+
+            <button
+              type="button"
+              className="text-white text-sm font-bold hover:underline self-end tracking-wide mb-4 transition-all bg-transparent outline-none cursor-pointer border-none"
+            >
+              Forgot Password ?
+            </button>
           </form>
         </div>
       </div>
