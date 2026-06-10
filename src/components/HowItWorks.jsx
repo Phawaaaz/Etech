@@ -4,7 +4,7 @@ export default function HowItWorks() {
   return (
     <section
       id="how-it-works"
-      className="w-full bg-white text-black py-8 px-6 font-sans"
+      className="w-full bg-white text-black pt-55 px-6 pb-10 font-sans"
     >
       <div className="max-w-6xl mx-auto flex flex-col items-center">
         <h3 className="text-5xl md:text-6xl font-black mb-12 tracking-tight text-center text-black">

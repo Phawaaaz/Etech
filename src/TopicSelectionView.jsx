@@ -1,11 +1,28 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function TopicSelectionView() {
   const [topic, setTopic] = useState("");
   const [level, setLevel] = useState("");
+  const navigate = useNavigate();
+
+  const handleFinalGenerate = (e) => {
+    e.preventDefault();
+    if (!topic.trim() || !level) return;
+
+    console.log("Handing parameters over to AI pipeline engine...", {
+      topic,
+      level,
+    });
+    navigate("/loading");
+  };
+
   return (
-    <form>
-      <div className="w-150 bg-white text-black px-6 py-4 rounded-full flex items-center shadow-lg mb-20">
+    <form
+      onSubmit={handleFinalGenerate}
+      className="flex flex-col items-center w-full max-w-2xl px-4 text-zinc-900"
+    >
+      <div className="w-full bg-white text-black px-6 py-4 rounded-full flex items-center shadow-lg mb-20">
         <label className="text-xl font-bold mr-3 select-none">Topic:</label>
         <input
           type="text"
