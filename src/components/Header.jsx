@@ -12,7 +12,10 @@ export default function Header() {
       >
         E-A.I
       </div>
-      <button className="h-12 w-12 rounded-full overflow-hidden border-2 border-transparent hover:border-gray-500 transition-all">
+      <button
+        onClick={() => navigate("/profile")}
+        className="h-12 w-12 rounded-full overflow-hidden border-2 border-transparent hover:border-gray-500 transition-all cursor-pointer"
+      >
         <img src={avatar} alt="Avatar" className="w-full h-full object-cover" />
       </button>
     </header>
