@@ -13,12 +13,36 @@ export default function Login() {
     password: "",
   });
 
-  const isFormValid =
+  const [emailError, setEmailError] = useState("");
+
+  const isEmailValid = loginData.email.includes("@");
+  const isFormComplete =
     loginData.email.trim() !== "" && loginData.password.trim() !== "";
+  const isFormValid = isFormComplete && isEmailValid;
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setLoginData((prev) => ({ ...prev, [name]: value }));
+
+    if (name === "email") {
+      if (value.trim() === "" || value.includes("@")) {
+        setEmailError("");
+      }
+    }
+  };
+
+  const handleLoginSubmit = (e) => {
+    e.preventDefault();
+
+    if (!isEmailValid) {
+      setEmailError("Please enter a valid email address containing '@'");
+      return;
+    }
+
+    console.log(
+      "Authentication pipeline execution payload verified:",
+      loginData,
+    );
   };
 
   const navigate = useNavigate();
@@ -27,15 +51,26 @@ export default function Login() {
       <SignBrandHeader />
       <div className="w-full max-w-xl mx-auto my-auto px-4 flex flex-col items-center justify-center min-h-[70vh] animate-fadeIn font-sans">
         <div className="w-full bg-[#04060E] border border-zinc-900 rounded-2xl p-8 md:p-12 shadow-[0_20px_50px_rgba(0,0,0,0.6)] flex flex-col">
-          <form className="w-full flex flex-col gap-6">
+          <form
+            onClick={handleLoginSubmit}
+            className="w-full flex flex-col gap-6"
+          >
             {emailField && (
-              <SignUpForm
-                label={emailField.label}
-                name={emailField.name}
-                type={emailField.type}
-                value={loginData[emailField.name]}
-                onChange={handleInputChange}
-              />
+              <div className="flex flex-col w-full">
+                <SignUpForm
+                  label={emailField.label}
+                  name={emailField.name}
+                  type={emailField.type}
+                  value={loginData[emailField.name]}
+                  onChange={handleInputChange}
+                />
+
+                {emailError && (
+                  <span className="text-red-500 font-bold text-sm tracking-wide mt-2 pl-4 animate-fadeIn">
+                    ⚠️ {emailError}
+                  </span>
+                )}
+              </div>
             )}
 
             {passwordField && (
