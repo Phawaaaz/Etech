@@ -1,7 +1,8 @@
-import { useNavigate, useOutletContext } from "react-router-dom";
+import { useOutletContext } from "react-router-dom";
 import { useState, useEffect } from "react";
 import SignUpForm from "../components/SignUpForm";
 import formFields from "../data/formFields";
+import SignBrandHeader from "../components/SignBrandHeader";
 
 export default function SignUp() {
   const context = useOutletContext();
@@ -14,7 +15,6 @@ export default function SignUp() {
     };
   }, [setForceDark]);
 
-  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -46,14 +46,7 @@ export default function SignUp() {
 
   return (
     <>
-      <div className="flex items-center justify-between w-full absolute top-0 left-0 p-6">
-        <div
-          onClick={() => navigate("/")}
-          className="bg-black text-white font-bold text-xl px-4 py-2 rounded-lg border border-gray-800 tracking-wider cursor-pointer select-none"
-        >
-          E-A.I
-        </div>
-      </div>
+      <SignBrandHeader />
       <div className="w-full max-w-4xl mx-auto px-4 flex flex-col items-center animate-fadeIn my-auto">
         <form
           onSubmit={handleSignUpSubmit}
