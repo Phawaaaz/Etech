@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import SignBrandHeader from "../components/SignBrandHeader";
 import formFields from "../data/formFields";
 import SignUpForm from "../components/SignUpForm";
@@ -19,6 +20,8 @@ export default function Login() {
     const { name, value } = e.target;
     setLoginData((prev) => ({ ...prev, [name]: value }));
   };
+
+  const navigate = useNavigate();
   return (
     <>
       <SignBrandHeader />
@@ -52,7 +55,7 @@ export default function Login() {
               Forgot Password ?
             </button>
 
-            <div>
+            <div className="flex items-center justify-center gap-5 w-full max-w-sm mx-auto mt-4">
               <button
                 type="submit"
                 disabled={!isFormValid}
@@ -64,6 +67,14 @@ export default function Login() {
                   }`}
               >
                 Sign in
+              </button>
+
+              <button
+                type="button"
+                onClick={navigate("/sign-up")}
+                className="text-white text-base font-bold leading-tight hover:text-zinc-300 text-left transition-colors cursor-pointer tracking-wide whitespace-pre-line max-w-[120px] select-none bg-transparent outline-none border-none"
+              >
+                Create account
               </button>
             </div>
           </form>
