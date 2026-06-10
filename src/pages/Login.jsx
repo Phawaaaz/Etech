@@ -61,7 +61,7 @@ export default function Login() {
       <div className="w-full max-w-xl mx-auto my-auto px-4 flex flex-col items-center justify-center min-h-[70vh] animate-fadeIn font-sans">
         <div className="w-full bg-[#04060E] border border-zinc-900 rounded-2xl p-8 md:p-12 shadow-[0_20px_50px_rgba(0,0,0,0.6)] flex flex-col">
           <form
-            onClick={handleLoginSubmit}
+            onSubmit={handleLoginSubmit}
             className="w-full flex flex-col gap-6"
           >
             {emailField && (
