@@ -1,6 +1,8 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function useLoginForm(onSubmit) {
+  const navigate = useNavigate();
   const [loginData, setLoginData] = useState({
     email: "",
     password: "",
@@ -43,6 +45,7 @@ export default function useLoginForm(onSubmit) {
 
     if (onSubmit) {
       onSubmit(loginData);
+      navigate("/dashboard");
     }
   };
 
