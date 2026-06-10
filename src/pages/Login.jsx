@@ -15,7 +15,12 @@ export default function Login() {
 
   const [emailError, setEmailError] = useState("");
 
-  const isEmailValid = loginData.email.includes("@");
+  const validateEmailFormat = (email) => {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(email);
+  };
+
+  const isEmailValid = validateEmailFormat(loginData.email);
   const isFormComplete =
     loginData.email.trim() !== "" && loginData.password.trim() !== "";
   const isFormValid = isFormComplete && isEmailValid;
@@ -25,8 +30,10 @@ export default function Login() {
     setLoginData((prev) => ({ ...prev, [name]: value }));
 
     if (name === "email") {
-      if (value.trim() === "" || value.includes("@")) {
+      if (value.trim() === "" || validateEmailFormat(value)) {
         setEmailError("");
+      } else {
+        setEmailError("Invalid email structure (e.g., name@domain.com)");
       }
     }
   };
@@ -35,7 +42,9 @@ export default function Login() {
     e.preventDefault();
 
     if (!isEmailValid) {
-      setEmailError("Please enter a valid email address containing '@'");
+      setEmailError(
+        "Please enter a valid email address containing '@' and standard domain extension",
+      );
       return;
     }
 
