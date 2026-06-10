@@ -25,7 +25,7 @@ export default function Login() {
   return (
     <>
       <SignBrandHeader />
-      <div className="w-full max-w-xl mx-auto px-4 flex flex-col items-center justify-center min-h-[70vh] animate-fadeIn font-sans">
+      <div className="w-full max-w-xl mx-auto my-auto px-4 flex flex-col items-center justify-center min-h-[70vh] animate-fadeIn font-sans">
         <div className="w-full bg-[#04060E] border border-zinc-900 rounded-2xl p-8 md:p-12 shadow-[0_20px_50px_rgba(0,0,0,0.6)] flex flex-col">
           <form className="w-full flex flex-col gap-6">
             {emailField && (
@@ -71,7 +71,7 @@ export default function Login() {
 
               <button
                 type="button"
-                onClick={navigate("/sign-up")}
+                onClick={() => navigate("/sign-up")}
                 className="text-white text-base font-bold leading-tight hover:text-zinc-300 text-left transition-colors cursor-pointer tracking-wide whitespace-pre-line max-w-[120px] select-none bg-transparent outline-none border-none"
               >
                 Create account
