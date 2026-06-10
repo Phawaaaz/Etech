@@ -26,7 +26,7 @@ export default function InteractiveWidget() {
           />
           <button
             onClick={() => topic.trim() && navigate("/select-topic")}
-            className="absolute right-2 p-2.5 rounded-full bg-blue-600 hover:bg-blue-700 text-white transition-colors"
+            className="absolute right-2 p-2.5 rounded-full bg-blue-600 hover:bg-blue-700 text-white transition-colors cursor-pointer"
           >
             ➔
           </button>
