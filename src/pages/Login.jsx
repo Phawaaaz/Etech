@@ -11,8 +11,14 @@ export default function Login() {
     email: "",
     password: "",
   });
+
   const isFormValid =
     loginData.email.trim() !== "" && loginData.password.trim() !== "";
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setLoginData((prev) => ({ ...prev, [name]: value }));
+  };
   return (
     <>
       <SignBrandHeader />
@@ -24,6 +30,8 @@ export default function Login() {
                 label={emailField.label}
                 name={emailField.name}
                 type={emailField.type}
+                value={loginData[emailField.name]}
+                onChange={handleInputChange}
               />
             )}
 
@@ -32,6 +40,8 @@ export default function Login() {
                 label={passwordField.label}
                 name={passwordField.name}
                 type={passwordField.type}
+                value={loginData[passwordField.name]}
+                onChange={handleInputChange}
               />
             )}
 
