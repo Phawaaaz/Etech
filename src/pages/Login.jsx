@@ -1,3 +1,4 @@
+import { useState } from "react";
 import SignBrandHeader from "../components/SignBrandHeader";
 import formFields from "../data/formFields";
 import SignUpForm from "../components/SignUpForm";
@@ -5,6 +6,13 @@ import SignUpForm from "../components/SignUpForm";
 export default function Login() {
   const emailField = formFields.find((field) => field.name === "email");
   const passwordField = formFields.find((field) => field.name === "password");
+
+  const [loginData, setLoginData] = useState({
+    email: "",
+    password: "",
+  });
+  const isFormValid =
+    loginData.email.trim() !== "" && loginData.password.trim() !== "";
   return (
     <>
       <SignBrandHeader />
@@ -33,6 +41,21 @@ export default function Login() {
             >
               Forgot Password ?
             </button>
+
+            <div>
+              <button
+                type="submit"
+                disabled={!isFormValid}
+                className={`flex-1 py-3 px-8 rounded-xl font-bold text-xl tracking-wide transition-all duration-300 border-2 border-transparent
+                  ${
+                    !isFormValid
+                      ? "bg-white/20 text-zinc-500 cursor-not-allowed"
+                      : "bg-white text-black hover:bg-transparent hover:text-white hover:border-white shadow-md active:scale-95 cursor-pointer"
+                  }`}
+              >
+                Sign in
+              </button>
+            </div>
           </form>
         </div>
       </div>
