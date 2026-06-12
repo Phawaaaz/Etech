@@ -1,7 +1,10 @@
+import { useNavigate } from "react-router-dom";
+import BackButton from "../components/BackButton";
 import CourseListItem from "../components/CourseListItem";
 import Header from "../components/Header";
 
 export default function CourseIndexView() {
+  const navigate = useNavigate();
   return (
     <div className="min-h-screen bg-[#040814] text-white flex flex-col items-center justify-between p-6 md:p-8 font-sans overflow-x-hidden relative">
       <div className="absolute top-1/4 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[35rem] h-[35rem] rounded-full bg-indigo-600/10 blur-[140px] pointer-events-none" />
@@ -17,6 +20,8 @@ export default function CourseIndexView() {
             <CourseListItem key={num} number={num} />
           ))}
         </div>
+
+        <BackButton onClick={() => navigate(-1)} />
       </main>
     </div>
   );
