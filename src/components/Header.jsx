@@ -5,7 +5,7 @@ export default function Header() {
   const navigate = useNavigate();
 
   return (
-    <header className="flex items-center justify-between w-full absolute top-0 left-0 p-6">
+    <header className="flex items-center justify-between w-full px-2 sm:px-2 py-2">
       <div
         onClick={() => navigate("/dashboard")}
         className="bg-black text-white font-bold text-xl px-4 py-2 rounded-lg border border-gray-800 tracking-wider cursor-pointer select-none"
