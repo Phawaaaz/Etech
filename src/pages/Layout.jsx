@@ -5,7 +5,9 @@ export default function Layout() {
   const { pathname } = useLocation();
   const isDark = pathname === "/dashboard";
   const isCenteredPage =
-    pathname === "/generate" || pathname === "/select-topic";
+    pathname === "/dashboard" ||
+    pathname === "/generate" ||
+    pathname === "/select-topic";
 
   return (
     <div
