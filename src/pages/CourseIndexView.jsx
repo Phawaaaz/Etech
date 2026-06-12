@@ -18,7 +18,11 @@ export default function CourseIndexView() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 md:gap-x-12 gap-y-3 md:gap-y-4 w-full px-2 md:px-8 mb-5 shrink-0">
           {[1, 2, 3, 4, 5, 6, 7, 8].map((num) => (
-            <CourseListItem key={num} number={num} />
+            <CourseListItem
+              key={num}
+              number={num}
+              onClick={() => navigate(`/course-module/${num}`)}
+            />
           ))}
         </div>
 
