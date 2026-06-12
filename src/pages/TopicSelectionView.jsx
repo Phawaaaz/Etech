@@ -49,7 +49,6 @@ export default function TopicSelectionView() {
       topic,
       level,
     });
-    // Fires the dynamic layout interface overlay element on the spot
     setIsLoading(true);
   };
 
