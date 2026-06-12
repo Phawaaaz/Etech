@@ -1,4 +1,4 @@
-import arrowLeft from "../assets/arrow-left.svg";
+import arrowLeftIcon from "../assets/arrow-left.svg";
 
 export default function BackButton({ onClick }) {
   return (
@@ -6,7 +6,7 @@ export default function BackButton({ onClick }) {
       onClick={onClick}
       className="text-white opacity-40 hover:scale-110 hover:opacity-100 cursor-pointer"
     >
-      <img src={arrowLeft} alt="Back Step" className="w-10 h-10" />
+      <img src={arrowLeftIcon} alt="Back Step" className="w-10 h-10" />
     </button>
   );
 }
