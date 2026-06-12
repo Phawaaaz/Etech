@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import BackButton from "../components/BackButton";
 import CourseListItem from "../components/CourseListItem";
 import Header from "../components/Header";
+import ChatInputFooter from "../components/ChatInputFooter";
 
 export default function CourseIndexView() {
   const navigate = useNavigate();
@@ -23,6 +24,7 @@ export default function CourseIndexView() {
 
         <BackButton onClick={() => navigate(-1)} />
       </main>
+      <ChatInputFooter />
     </div>
   );
 }
