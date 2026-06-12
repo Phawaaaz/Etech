@@ -37,7 +37,7 @@ export default function TopicSelectionView() {
       console.log("Generation process completed. Ready to redirect.");
 
       // Once complete, route to your final generation output screen here:
-      navigate("/results");
+      navigate("/course-index");
     }
   }, [progress, navigate]);
 
