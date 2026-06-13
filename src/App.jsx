@@ -9,6 +9,7 @@ import Login from "./pages/Login";
 import Profile from "./pages/Profile";
 import CourseIndexView from "./pages/CourseIndexView";
 import CourseModuleView from "./pages/CourseModuleView";
+import CourseQuizView from "./pages/CourseQuizView";
 
 export default function App() {
   return (
@@ -25,6 +26,7 @@ export default function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/course-index" element={<CourseIndexView />} />
         <Route path="/course-module/:id" element={<CourseModuleView />} />
+        <Route path="/course-quiz/:id" element={<CourseQuizView />} />
       </Routes>
     </Router>
   );
