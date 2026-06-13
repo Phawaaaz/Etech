@@ -39,7 +39,10 @@ export default function CourseModuleView() {
           </button>
         </div>
 
-        <p className="text-sm md:text-[15px] font-bold text-black leading-relaxed text-left mb-8 px-2 md:px-9">
+        <p
+          className="text-sm md:text-[15px] font-bold text-black leading-relaxed text-left px-2 md:px-9"
+          style={{ marginBottom: "1.25rem" }}
+        >
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris orci
           magna, dictum eget elit sed, tincidunt vehicula dui. Vestibulum dictum
           fringilla turpis, et ultricies dolor ornare non. Duis ut sodales
@@ -55,6 +58,23 @@ export default function CourseModuleView() {
           auctor orci placerat eu. Nullam sit amet sem id ipsum aliquam cursus.
           Etiam accums
         </p>
+
+        <div className="bg-[#040814] text-white rounded-xl p-6 md:p-8 mb-6 shadow-xl shrink-0">
+          <h3 className="font-bold text-lg mb-2 text-left">Example:</h3>
+          <p className="text-sm md:text-[15px] font-medium leading-relaxed text-gray-200">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris orci
+            magna, dictum eget elit sed, tincidunt vehicula dui. Vestibulum
+            dictum fringilla turpis, et ultricies dolor ornare non. Duis ut
+            sodales neque. Mauris pretium malesuada dolor, in interdum lorem
+            fringilla eget. Morbi quis dui quis purus laoreet interdum. In sagi
+          </p>
+        </div>
+
+        <div className="flex justify-end pb-4 shrink-0">
+          <button className="bg-[#040814] text-white px-6 md:px-8 py-2.5 rounded-lg font-bold text-sm md:text-base hover:bg-gray-700 transition-colors shadow-lg cursor-pointer focus:scale-90">
+            Generate image
+          </button>
+        </div>
       </main>
     </div>
   );
