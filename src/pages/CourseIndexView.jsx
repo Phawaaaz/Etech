@@ -26,7 +26,10 @@ export default function CourseIndexView() {
           ))}
         </div>
 
-        <BackButton onClick={() => navigate(-1)} />
+        <BackButton
+          onClick={() => navigate("/select-topic")}
+          title="Back to Topic Selection"
+        />
       </main>
 
       <ChatInputFooter />
