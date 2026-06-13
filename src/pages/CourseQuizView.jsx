@@ -35,6 +35,22 @@ export default function CourseQuizView() {
             </span>
           </h2>
         </div>
+
+        <ol className="list-decimal flex flex-col text-left space-y-2 md:space-y-3 pl-8 md:pl-10 mb-12 font-bold text-[17px] md:text-[19px] marker:font-bold">
+          <li className="pl-1 md:pl-2">What did you learn from the course ?</li>
+          <li className="pl-1 md:pl-2">What is the_________ ?</li>
+          <li className="pl-1 md:pl-2">Define hhgcbb</li>
+          <li className="pl-1 md:pl-2 leading-relaxed">
+            <div>explain the following:</div>
+            <div className="mt-1">(i)sfyfdvcggcv (ii)jhcugbsdhhjcgda</div>
+          </li>
+        </ol>
+
+        <div className="flex justify-end pb-8 shrink-0">
+          <button className="bg-[#040814] text-white px-8 md:px-10 py-2.5 rounded-lg font-bold text-sm md:text-base hover:bg-gray-700 transition-colors shadow-lg tracking-wide cursor-pointer focus:scale-90">
+            Submit
+          </button>
+        </div>
       </main>
     </div>
   );
