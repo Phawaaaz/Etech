@@ -1,4 +1,4 @@
-import { useOutletContext } from "react-router-dom";
+import { useOutletContext, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import InputField from "../components/InputField";
 import formFields from "../data/formFields";
@@ -7,6 +7,7 @@ import AuthLayout from "../components/AuthLayout";
 export default function SignUp() {
   const context = useOutletContext();
   const setForceDark = context?.setForceDark;
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (setForceDark) setForceDark(true);
@@ -39,9 +40,31 @@ export default function SignUp() {
       alert("Passwords do not match!");
       return;
     }
-    console.log("Form registration context payload data ready:", formData);
-    // Route into your user onboarding or dashboard stream here:
-    // navigate("/dashboard");
+    
+    const name = `${formData.firstName} ${formData.lastName}`.trim();
+    fetch("http://localhost:5000/api/auth/register", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name, email: formData.email, password: formData.password }),
+    })
+      .then(async (res) => {
+        if (!res.ok) {
+          const errData = await res.json().catch(() => ({}));
+          throw new Error(errData.error?.message || "Registration failed.");
+        }
+        return res.json();
+      })
+      .then((data) => {
+        if (data.success) {
+          localStorage.setItem("token", data.data.accessToken);
+          localStorage.setItem("refreshToken", data.data.refreshToken);
+          localStorage.setItem("user", JSON.stringify(data.data.user));
+          navigate("/dashboard");
+        }
+      })
+      .catch((err) => {
+        alert(err.message);
+      });
   };
 
   return (

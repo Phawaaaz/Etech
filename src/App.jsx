@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate, Outlet } from "react-router-dom";
 import Layout from "./pages/Layout";
 import Dashboard from "./pages/Dashboard";
 import GenerationView from "./pages/GenerationView";
@@ -10,23 +10,36 @@ import Profile from "./pages/Profile";
 import CourseIndexView from "./pages/CourseIndexView";
 import CourseModuleView from "./pages/CourseModuleView";
 import CourseQuizView from "./pages/CourseQuizView";
+import Result from "./pages/Result";
+import CreateCourse from "./pages/CreateCourse";
+
+function ProtectedRoute() {
+  const token = localStorage.getItem("token");
+  return token ? <Outlet /> : <Navigate to="/login" replace />;
+}
 
 export default function App() {
   return (
     <Router>
       <Routes>
         <Route path="/" element={<LandingPage />} />
-        <Route element={<Layout />}>
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/generate" element={<GenerationView />} />
-          <Route path="/select-topic" element={<TopicSelectionView />} />
-        </Route>
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/course-index" element={<CourseIndexView />} />
-        <Route path="/course-module/:id" element={<CourseModuleView />} />
-        <Route path="/course-quiz/:id" element={<CourseQuizView />} />
+        
+        {/* Protected Routes */}
+        <Route element={<ProtectedRoute />}>
+          <Route element={<Layout />}>
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/generate" element={<GenerationView />} />
+            <Route path="/select-topic" element={<TopicSelectionView />} />
+            <Route path="/result" element={<Result />} />
+            <Route path="/create-course" element={<CreateCourse />} />
+          </Route>
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/course-index/:courseId" element={<CourseIndexView />} />
+          <Route path="/course-module/:courseId/:order" element={<CourseModuleView />} />
+          <Route path="/course-quiz/:courseId/:sectionId" element={<CourseQuizView />} />
+        </Route>
       </Routes>
     </Router>
   );

@@ -12,7 +12,9 @@ export default function Profile() {
   ];
 
   const handleLogout = () => {
-    console.log("User logging out...");
+    localStorage.removeItem("token");
+    localStorage.removeItem("refreshToken");
+    localStorage.removeItem("user");
     navigate("/login");
   };
 

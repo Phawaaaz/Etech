@@ -43,10 +43,30 @@ export default function useLoginForm(onSubmit) {
       return;
     }
 
-    if (onSubmit) {
-      onSubmit(loginData);
-      navigate("/dashboard");
-    }
+    fetch("http://localhost:5000/api/auth/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email: loginData.email, password: loginData.password }),
+    })
+      .then(async (res) => {
+        if (!res.ok) {
+          const errData = await res.json().catch(() => ({}));
+          throw new Error(errData.error?.message || "Incorrect email or password.");
+        }
+        return res.json();
+      })
+      .then((data) => {
+        if (data.success) {
+          localStorage.setItem("token", data.data.accessToken);
+          localStorage.setItem("refreshToken", data.data.refreshToken);
+          localStorage.setItem("user", JSON.stringify(data.data.user));
+          if (onSubmit) onSubmit(data.data);
+          navigate("/dashboard");
+        }
+      })
+      .catch((err) => {
+        alert(err.message);
+      });
   };
 
   return {
