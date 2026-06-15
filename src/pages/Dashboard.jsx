@@ -3,10 +3,17 @@ import { useNavigate } from "react-router-dom";
 import OptionButton from "../components/OptionButton";
 import NextButton from "../components/NextButton";
 import formatOptions from "../data/formatOptions";
+import { useEtech } from "../context/EtechContext";
 
 export default function Dashboard() {
   const [selectedOption, setSelectedOption] = useState(null);
   const navigate = useNavigate();
+  const { updateWizard } = useEtech();
+
+  const handleNext = () => {
+    updateWizard({ format: selectedOption });
+    navigate("/generate");
+  };
 
   return (
     <div className="flex flex-col items-center w-full">
@@ -28,7 +35,7 @@ export default function Dashboard() {
 
       <NextButton
         disabled={!selectedOption}
-        onClick={() => navigate("/generate")}
+        onClick={handleNext}
       />
     </div>
   );

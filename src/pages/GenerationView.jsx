@@ -1,14 +1,17 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import GenerateButton from "../components/GenerateButton";
+import { useEtech } from "../context/EtechContext";
 
 export default function GenerationView() {
   const [prompt, setPrompt] = useState("");
   const navigate = useNavigate();
+  const { updateWizard } = useEtech();
 
   const handleGenerate = (e) => {
     e.preventDefault();
     if (!prompt.trim()) return;
+    updateWizard({ prompt });
     navigate("/select-topic");
   };
 
