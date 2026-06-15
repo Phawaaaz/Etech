@@ -10,7 +10,10 @@ export default function Dashboard() {
 
   return (
     <div className="flex flex-col items-center w-full">
-      <h1 className="text-4xl md:text-5xl font-bold mb-12 tracking-tight text-center text-white">
+      <h1
+        className="text-4xl md:text-5xl font-bold mb-12 tracking-tight text-center text-white"
+        style={{ color: "white" }}
+      >
         What do you need?
       </h1>
 

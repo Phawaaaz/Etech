@@ -3,16 +3,30 @@ import Layout from "./pages/Layout";
 import Dashboard from "./pages/Dashboard";
 import GenerationView from "./pages/GenerationView";
 import TopicSelectionView from "./pages/TopicSelectionView";
+import LandingPage from "./pages/LandingPage";
+import SignUp from "./pages/SignUp";
+import Login from "./pages/Login";
+import Profile from "./pages/Profile";
+import CourseIndexView from "./pages/CourseIndexView";
+import CourseModuleView from "./pages/CourseModuleView";
+import CourseQuizView from "./pages/CourseQuizView";
 
 export default function App() {
   return (
     <Router>
       <Routes>
+        <Route path="/" element={<LandingPage />} />
         <Route element={<Layout />}>
-          <Route path="/" element={<Dashboard />} />
+          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/generate" element={<GenerationView />} />
           <Route path="/select-topic" element={<TopicSelectionView />} />
         </Route>
+        <Route path="/sign-up" element={<SignUp />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/course-index" element={<CourseIndexView />} />
+        <Route path="/course-module/:id" element={<CourseModuleView />} />
+        <Route path="/course-quiz/:id" element={<CourseQuizView />} />
       </Routes>
     </Router>
   );

@@ -1,16 +1,20 @@
 import { useNavigate } from "react-router-dom";
 import avatar from "../assets/avatar.svg";
+import MenuButton from "./MenuButton";
 
-export default function Header() {
+export default function HeaderWithMenu() {
   const navigate = useNavigate();
 
   return (
-    <header className="flex items-center justify-between w-full px-2 sm:px-2 py-2">
-      <div
-        onClick={() => navigate("/dashboard")}
-        className="bg-black text-white font-bold text-xl px-4 py-2 rounded-lg border border-gray-800 tracking-wider cursor-pointer select-none"
-      >
-        E-A.I
+    <header className="flex items-center justify-between px-6 md:px-8 py-4 bg-white z-50 relative">
+      <div className="flex items-center gap-5 md:gap-6">
+        <div
+          onClick={() => navigate("/dashboard")}
+          className="font-black text-2xl tracking-wider cursor-pointer select-none"
+        >
+          E-A.I
+        </div>
+        <MenuButton />
       </div>
       <button
         onClick={() => navigate("/profile")}
