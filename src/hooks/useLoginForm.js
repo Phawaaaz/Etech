@@ -43,7 +43,7 @@ export default function useLoginForm(onSubmit) {
       return;
     }
 
-    fetch("http://localhost:5000/api/auth/login", {
+    fetch("https://etechbackend.onrender.com/api/auth/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email: loginData.email, password: loginData.password }),

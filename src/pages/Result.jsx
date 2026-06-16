@@ -131,7 +131,7 @@ export default function Result() {
       });
     }, 800);
 
-    fetch("http://localhost:5000/api/generate", {
+    fetch("https://etechbackend.onrender.com/api/generate", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ format, prompt, topic, level }),
