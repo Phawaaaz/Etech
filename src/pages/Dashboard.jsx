@@ -81,7 +81,7 @@ export default function Dashboard() {
         </div>
         <button
           onClick={() => navigate("/create-course")}
-          className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-8 py-3.5 rounded-full text-base transition-all hover:scale-105 active:scale-95 shadow-md flex items-center gap-2 select-none"
+          className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-8 py-3.5 rounded-full text-base transition-all hover:scale-105 active:scale-95 shadow-md flex items-center gap-2 select-none cursor-pointer"
         >
           <svg
             className="w-5 h-5"
