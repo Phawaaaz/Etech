@@ -3,11 +3,8 @@ import LoginForm from "../components/LoginForm";
 import useLoginForm from "../hooks/useLoginForm";
 
 export default function Login() {
-  const handleLoginSuccess = (loginData) => {
-    console.log(
-      "Authentication pipeline execution payload verified:",
-      loginData,
-    );
+  const handleLoginSuccess = () => {
+    console.log("Authentication pipeline execution payload verified");
   };
 
   const {
