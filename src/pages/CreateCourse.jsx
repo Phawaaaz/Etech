@@ -7,7 +7,7 @@ export default function CreateCourse() {
   const navigate = useNavigate();
   const [subject, setSubject] = useState("");
   const [level, setLevel] = useState("");
-  
+
   // Loading states
   const [discovering, setDiscovering] = useState(false);
   const [generating, setGenerating] = useState(false);
@@ -41,13 +41,15 @@ export default function CreateCourse() {
     }
   };
 
-  const handleGenerate = async () => {
-    const topic = selectedTopic === "custom" ? customTopic : selectedTopic;
+  const handleGenerate = async (topicOverride = null) => {
+    const topic =
+      topicOverride ??
+      (selectedTopic === "custom" ? customTopic : selectedTopic);
     if (!topic || !topic.trim()) return;
 
     setGenerating(true);
     setGenProgress(10);
-    
+
     // Simulate active generation progress bar
     const interval = setInterval(() => {
       setGenProgress((prev) => {
@@ -66,7 +68,7 @@ export default function CreateCourse() {
       });
       clearInterval(interval);
       setGenProgress(100);
-      
+
       if (data.success && data.data.course) {
         navigate(`/course-index/${data.data.course.id}`);
       }
@@ -87,28 +89,42 @@ export default function CreateCourse() {
             style={{ borderTopColor: "transparent", animationDuration: "1.5s" }}
           ></div>
           <div className="absolute inset-0 flex items-center justify-center">
-            <span className="text-3xl font-black text-indigo-600">{genProgress}%</span>
+            <span className="text-3xl font-black text-indigo-600">
+              {genProgress}%
+            </span>
           </div>
         </div>
-        <h2 className="text-3xl font-bold text-zinc-800 mb-2 animate-pulse">Designing Curriculum</h2>
+        <h2 className="text-3xl font-bold text-zinc-800 mb-2 animate-pulse">
+          Designing Curriculum
+        </h2>
         <p className="text-zinc-500 text-lg font-medium max-w-md italic">
-          Building sections, lessons structure, learning objectives, and custom worked examples...
+          Building sections, lessons structure, learning objectives, and custom
+          worked examples...
         </p>
       </div>
     );
   }
 
+  const resolvedCustomTopic = customTopic.trim();
+  const activeTopic =
+    selectedTopic === "custom" ? resolvedCustomTopic : selectedTopic;
+
   return (
     <div className="w-full max-w-4xl px-4 flex flex-col items-center">
-      <h1 className="text-4xl font-extrabold mb-8 tracking-tight text-center text-zinc-900 dark:text-white">
+      <h1 className="text-4xl font-extrabold mb-8 tracking-tight text-center dark:text-white text-black">
         Create New Course
       </h1>
 
       {/* Discovery Form */}
-      <form onSubmit={handleDiscover} className="w-full max-w-3xl flex flex-col items-center mb-10">
+      <form
+        onSubmit={handleDiscover}
+        className="w-full max-w-3xl flex flex-col items-center mb-10"
+      >
         <div className="w-full bg-white dark:bg-zinc-800 text-black dark:text-white px-6 py-4 rounded-3xl flex flex-col md:flex-row gap-4 items-center shadow-lg border border-zinc-200 dark:border-zinc-700 mb-6">
           <div className="flex-1 w-full flex items-center">
-            <label className="text-lg font-bold mr-3 text-zinc-600 dark:text-zinc-350 shrink-0">Subject:</label>
+            <label className="text-lg font-bold mr-3 text-zinc-600 dark:text-zinc-350 shrink-0">
+              Subject:
+            </label>
             <input
               type="text"
               value={subject}
@@ -119,16 +135,26 @@ export default function CreateCourse() {
           </div>
           <div className="h-px md:h-8 w-full md:w-px bg-zinc-200 dark:bg-zinc-700" />
           <div className="flex-1 w-full flex items-center relative">
-            <label className="text-lg font-bold mr-3 text-zinc-600 dark:text-zinc-350 shrink-0">Level:</label>
+            <label className="text-lg font-bold mr-3 text-zinc-600 dark:text-zinc-350 shrink-0">
+              Level:
+            </label>
             <select
               value={level}
               onChange={(e) => setLevel(e.target.value)}
               className="w-full bg-transparent text-lg font-semibold focus:outline-none cursor-pointer pr-10 appearance-none text-zinc-900 dark:text-white"
             >
-              <option value="" disabled hidden>Select difficulty</option>
-              <option value="Beginner">Beginner</option>
-              <option value="Intermediate">Intermediate</option>
-              <option value="Advanced">Advanced</option>
+              <option value="" disabled hidden>
+                Select difficulty
+              </option>
+              <option className="text-black" value="Beginner">
+                Beginner
+              </option>
+              <option className="text-black" value="Intermediate">
+                Intermediate
+              </option>
+              <option className="text-black" value="Advanced">
+                Advanced
+              </option>
             </select>
             <div className="absolute right-2 pointer-events-none text-xl font-black text-zinc-400">
               &#9660;
@@ -136,7 +162,10 @@ export default function CreateCourse() {
           </div>
         </div>
 
-        <GenerateButton disabled={!subject.trim() || !level || discovering} label={discovering ? "Finding..." : "Recommend Topics"} />
+        <GenerateButton
+          disabled={!subject.trim() || !level || discovering}
+          label={discovering ? "Finding..." : "Recommend Topics"}
+        />
       </form>
 
       {/* Recommended Topics */}
@@ -145,12 +174,15 @@ export default function CreateCourse() {
           <h3 className="text-2xl font-black text-zinc-900 dark:text-white mb-6 w-full text-left">
             Choose a Course Title
           </h3>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full mb-8">
             {recommendations.map((rec, idx) => (
               <div
                 key={idx}
-                onClick={() => setSelectedTopic(rec.title)}
+                onClick={() => {
+                  setSelectedTopic(rec.title);
+                  handleGenerate(rec.title);
+                }}
                 className={`p-5 rounded-2xl border cursor-pointer text-left transition-all ${
                   selectedTopic === rec.title
                     ? "bg-indigo-50/80 border-indigo-500 dark:bg-indigo-950/20 dark:border-indigo-500 scale-[1.01]"
@@ -161,10 +193,10 @@ export default function CreateCourse() {
                   <span className="h-6 w-6 rounded-lg bg-zinc-900 dark:bg-white text-white dark:text-black font-extrabold text-xs flex items-center justify-center">
                     {idx + 1}
                   </span>
-                  <h4 className="font-extrabold text-zinc-900 dark:text-white text-base md:text-lg flex-1 truncate ml-1">
+                  <h4 className="font-extrabold text-zinc-900 dark:text-zinc-300 text-base md:text-lg flex-1 truncate ml-1">
                     {rec.title}
                   </h4>
-                  <span className="text-xs font-bold text-indigo-600 bg-indigo-50 dark:bg-indigo-950/50 dark:text-indigo-400 px-2 py-0.5 rounded">
+                  <span className="text-xs font-bold text-indigo-600 bg-indigo-50 dark:bg-indigo-50 dark:text-indigo-400 px-2 py-0.5 rounded">
                     {rec.estimatedHours}h
                   </span>
                 </div>
@@ -174,7 +206,10 @@ export default function CreateCourse() {
                 {rec.tags && rec.tags.length > 0 && (
                   <div className="flex flex-wrap gap-1.5 mt-2">
                     {rec.tags.map((tag, tIdx) => (
-                      <span key={tIdx} className="text-3xs md:text-2xs uppercase tracking-wider font-extrabold px-2 py-0.5 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-450">
+                      <span
+                        key={tIdx}
+                        className="text-3xs md:text-2xs uppercase tracking-wider font-extrabold px-2 py-0.5 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-300"
+                      >
                         {tag}
                       </span>
                     ))}
@@ -196,7 +231,7 @@ export default function CreateCourse() {
                 <span className="h-6 w-6 rounded-lg bg-indigo-600 text-white font-extrabold text-xs flex items-center justify-center">
                   C
                 </span>
-                <h4 className="font-extrabold text-zinc-900 dark:text-white text-lg">
+                <h4 className="font-extrabold text-zinc-300 dark:text-white text-lg">
                   Or enter your own custom topic
                 </h4>
               </div>
@@ -204,7 +239,16 @@ export default function CreateCourse() {
                 <input
                   type="text"
                   value={customTopic}
-                  onChange={(e) => setCustomTopic(e.target.value)}
+                  onChange={(e) => {
+                    setSelectedTopic("custom");
+                    setCustomTopic(e.target.value);
+                  }}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      e.preventDefault();
+                      handleGenerate(activeTopic);
+                    }
+                  }}
                   placeholder="Enter custom course topic..."
                   className="w-full bg-white dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-700 rounded-xl px-4 py-2 mt-3 focus:outline-none text-zinc-900 dark:text-white font-semibold shadow-sm focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
                   onClick={(e) => e.stopPropagation()}
@@ -214,12 +258,13 @@ export default function CreateCourse() {
           </div>
 
           <button
-            onClick={handleGenerate}
-            disabled={!selectedTopic || (selectedTopic === "custom" && !customTopic.trim())}
+            type="button"
+            onClick={() => handleGenerate(activeTopic)}
+            disabled={!activeTopic}
             className={`px-12 py-3.5 rounded-full font-bold text-xl transition-all shadow-md active:scale-95 ${
-              !selectedTopic || (selectedTopic === "custom" && !customTopic.trim())
+              !activeTopic
                 ? "bg-zinc-200 dark:bg-zinc-800 text-zinc-400 dark:text-zinc-600 cursor-not-allowed"
-                : "bg-indigo-600 hover:bg-indigo-700 text-white hover:scale-105"
+                : "bg-indigo-600 hover:bg-indigo-700 text-white hover:scale-105 cursor-pointer"
             }`}
           >
             Generate Course Index
