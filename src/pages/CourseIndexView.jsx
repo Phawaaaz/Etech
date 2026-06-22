@@ -14,32 +14,44 @@ export default function CourseIndexView() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (courseId) {
-      loadCourseAndProgress();
-    }
-  }, [courseId]);
+    if (!courseId) return;
 
-  const loadCourseAndProgress = async () => {
-    try {
-      setLoading(true);
-      const [courseData, progressData] = await Promise.all([
-        apiFetch(`/courses/${courseId}`),
-        apiFetch(`/courses/${courseId}/progress`),
-      ]);
+    let isActive = true;
 
-      if (courseData.success && courseData.data.course) {
-        setCourse(courseData.data.course);
+    const fetchCourseAndProgress = async () => {
+      try {
+        if (!isActive) return;
+
+        setLoading(true);
+        const [courseData, progressData] = await Promise.all([
+          apiFetch(`/courses/${courseId}`),
+          apiFetch(`/courses/${courseId}/progress`),
+        ]);
+
+        if (!isActive) return;
+
+        if (courseData.success && courseData.data.course) {
+          setCourse(courseData.data.course);
+        }
+        if (progressData.success && progressData.data) {
+          setProgress(progressData.data);
+        }
+      } catch (err) {
+        if (!isActive) return;
+
+        alert(err.message || "Failed to load course details.");
+        navigate("/dashboard");
+      } finally {
+        if (isActive) setLoading(false);
       }
-      if (progressData.success && progressData.data) {
-        setProgress(progressData.data);
-      }
-    } catch (err) {
-      alert(err.message || "Failed to load course details.");
-      navigate("/dashboard");
-    } finally {
-      setLoading(false);
-    }
-  };
+    };
+
+    Promise.resolve().then(fetchCourseAndProgress);
+
+    return () => {
+      isActive = false;
+    };
+  }, [courseId, navigate]);
 
   if (loading) {
     return (
@@ -139,8 +151,8 @@ export default function CourseIndexView() {
 
           <div className="mt-8 flex justify-start shrink-0">
             <BackButton
-              onClick={() => navigate("/dashboard")}
-              title="Back to Dashboard"
+              onClick={() => navigate("/create-course")}
+              title="Back to Create Course"
             />
           </div>
         </div>
