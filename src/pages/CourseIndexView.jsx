@@ -45,7 +45,9 @@ export default function CourseIndexView() {
     return (
       <div className="min-h-screen bg-[#040814] text-white flex flex-col items-center justify-center font-sans">
         <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-white"></div>
-        <p className="mt-4 text-zinc-400 font-medium select-none">Loading course curriculum...</p>
+        <p className="mt-4 text-zinc-400 font-medium select-none">
+          Loading course curriculum...
+        </p>
       </div>
     );
   }
@@ -57,7 +59,6 @@ export default function CourseIndexView() {
       <Header />
 
       <main className="w-full max-w-5xl flex flex-col md:flex-row gap-8 py-6 md:py-8 mt-16 text-left">
-        
         {/* Sidebar Info */}
         <div className="w-full md:w-1/3 flex flex-col gap-6">
           <div className="bg-white/5 border border-white/10 rounded-3xl p-6 shadow-xl backdrop-blur-md">
@@ -83,10 +84,14 @@ export default function CourseIndexView() {
           {/* Progress Card */}
           {progress && (
             <div className="bg-white/5 border border-white/10 rounded-3xl p-6 shadow-xl backdrop-blur-md">
-              <h3 className="text-lg font-bold text-white mb-2">Your Progress</h3>
+              <h3 className="text-lg font-bold text-white mb-2">
+                Your Progress
+              </h3>
               <div className="flex justify-between text-sm text-zinc-400 font-bold mb-3 select-none">
                 <span>Modules Completed:</span>
-                <span>{progress.completedSections} / {course.index.length}</span>
+                <span>
+                  {progress.completedSections} / {course.index.length}
+                </span>
               </div>
               <div className="w-full bg-white/10 rounded-full h-3.5 p-0.5 overflow-hidden flex items-center">
                 <div
@@ -110,7 +115,11 @@ export default function CourseIndexView() {
           <div className="flex flex-col gap-4 w-full">
             {course.index.map((sec) => {
               // Check if completed from progress API
-              const sectionProgress = progress?.sections?.find((p) => p.sectionId?._id === sec._id || p.sectionId?.order === sec.order);
+              const sectionProgress = progress?.sections?.find(
+                (p) =>
+                  p.sectionId?._id === sec._id ||
+                  p.sectionId?.order === sec.order,
+              );
               const isCompleted = sectionProgress?.status === "completed";
 
               return (
@@ -120,7 +129,9 @@ export default function CourseIndexView() {
                   title={sec.title}
                   summary={sec.summary}
                   duration={sec.estimatedMinutes}
-                  onClick={() => navigate(`/course-module/${courseId}/${sec.order}`)}
+                  onClick={() =>
+                    navigate(`/course-module/${courseId}/${sec.order}`)
+                  }
                 />
               );
             })}
