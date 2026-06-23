@@ -8,7 +8,7 @@ import Navbar from "../components/Navbar";
 
 export default function LandingPage() {
   return (
-    <div className="text-white font-sans text-white">
+    <div className="text-white font-sans text-white bg-black">
       <Navbar />
       <HeroSection />
       <InteractiveWidget />
