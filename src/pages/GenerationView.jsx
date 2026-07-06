@@ -6,7 +6,8 @@ import { useEtech } from "../context/EtechContext";
 export default function GenerationView() {
   const [prompt, setPrompt] = useState("");
   const navigate = useNavigate();
-  const { updateWizard } = useEtech();
+  const { wizardData, updateWizard } = useEtech();
+  const format = wizardData.format;
 
   const handleGenerate = (e) => {
     e.preventDefault();
@@ -26,8 +27,8 @@ export default function GenerationView() {
             type="text"
             value={prompt}
             onChange={(e) => setPrompt(e.target.value)}
-            placeholder="Message E-A.I"
-            className="w-full bg-[#5C5E62] text-zinc-900 placeholder-black/60 px-6 py-4 rounded-full text-xl font-bold tracking-wide focus:outline-none focus:ring-2 focus:ring-gray-400 pr-16 transition-all"
+            placeholder={format ? `Message E-A.I to generate ${format}...` : "Message E-A.I"}
+            className="w-full bg-[#5C5E62] text-white placeholder-white/60 px-6 py-4 rounded-full text-xl font-medium tracking-wide focus:outline-none focus:ring-2 focus:ring-gray-400 pr-16 transition-all shadow-md"
           />
         </div>
         <GenerateButton disabled={!prompt.trim()} />

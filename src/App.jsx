@@ -1,21 +1,46 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate, Outlet } from "react-router-dom";
 import { EtechProvider } from "./context/EtechContext";
 import Layout from "./pages/Layout";
 import Dashboard from "./pages/Dashboard";
 import GenerationView from "./pages/GenerationView";
 import TopicSelectionView from "./pages/TopicSelectionView";
 import ResultView from "./pages/ResultView";
+import LandingPage from "./pages/LandingPage";
+import SignUp from "./pages/SignUp";
+import Login from "./pages/Login";
+import Profile from "./pages/Profile";
+import CourseIndexView from "./pages/CourseIndexView";
+import CourseModuleView from "./pages/CourseModuleView";
+import CourseQuizView from "./pages/CourseQuizView";
+import CreateCourse from "./pages/CreateCourse";
+
+function ProtectedRoute() {
+  const token = localStorage.getItem("token");
+  return token ? <Outlet /> : <Navigate to="/login" replace />;
+}
 
 export default function App() {
   return (
     <EtechProvider>
       <Router>
         <Routes>
-          <Route element={<Layout />}>
-            <Route path="/" element={<Dashboard />} />
-            <Route path="/generate" element={<GenerationView />} />
-            <Route path="/select-topic" element={<TopicSelectionView />} />
-            <Route path="/result" element={<ResultView />} />
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/sign-up" element={<SignUp />} />
+          <Route path="/login" element={<Login />} />
+
+          {/* Protected Routes */}
+          <Route element={<ProtectedRoute />}>
+            <Route element={<Layout />}>
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/generate" element={<GenerationView />} />
+              <Route path="/select-topic" element={<TopicSelectionView />} />
+              <Route path="/result" element={<ResultView />} />
+              <Route path="/create-course" element={<CreateCourse />} />
+            </Route>
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/course-index/:courseId" element={<CourseIndexView />} />
+            <Route path="/course-module/:courseId/:order" element={<CourseModuleView />} />
+            <Route path="/course-quiz/:courseId/:sectionId" element={<CourseQuizView />} />
           </Route>
         </Routes>
       </Router>
