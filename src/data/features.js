@@ -1,23 +1,25 @@
+import { Network, ClipboardCheck, Hammer, TrendingUp } from "lucide-react";
+
 const features = [
   {
     title: "Diagrams & visuals",
-    desc: "AI generated diagrams that help lessons stick.",
-    bgTint: "bg-[#EBF7F5]",
+    desc: "AI-generated diagrams that make complex ideas actually stick.",
+    icon: Network,
   },
   {
     title: "Quizzes & exercises",
-    desc: "Test your knowledge with auto-generated courses.",
-    bgTint: "bg-[#EDF5F6]",
+    desc: "Check your understanding with a quiz after every module.",
+    icon: ClipboardCheck,
   },
   {
-    title: "Projects",
-    desc: "Hands-on projects to apply what you've learnt.",
-    bgTint: "bg-[#FBF6F0]",
+    title: "Hands-on projects",
+    desc: "Apply what you learn with practical, guided projects.",
+    icon: Hammer,
   },
   {
-    title: "Project Tracking",
-    desc: "Track your progress and stay motivated.",
-    bgTint: "bg-[#FBF3F5]",
+    title: "Progress tracking",
+    desc: "See how far you've come and stay motivated to finish.",
+    icon: TrendingUp,
   },
 ];
 

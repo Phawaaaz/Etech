@@ -1,42 +1,43 @@
 import steps from "../data/howItWorkSteps";
+import SectionHeading from "./landing/SectionHeading";
+import { Stagger, RevealItem } from "./motion/Reveal";
 
 export default function HowItWorks() {
   return (
-    <section
-      id="how-it-works"
-      className="w-full bg-white text-black pt-55 px-6 pb-10 font-sans"
-    >
-      <div className="max-w-6xl mx-auto flex flex-col items-center">
-        <h3 className="text-5xl md:text-6xl font-black mb-12 tracking-tight text-center text-black">
-          How It Works
-        </h3>
+    <section id="how-it-works" className="py-20 sm:py-28">
+      <div className="mx-auto max-w-6xl px-6">
+        <SectionHeading
+          eyebrow="How it works"
+          title="Three steps to a course that fits you"
+          subtitle="No syllabus to plan and no content to hunt down. Tell Etech what you want, and start learning."
+        />
 
-        <div className="flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-4 w-full">
-          {steps.map((step, index) => (
-            <div key={step.num} className="flex items-center w-full lg:w-auto">
-              <div className="flex items-start gap-5 max-w-sm mx-auto lg:mx-0">
-                <div className="w-20 h-20 shrink-0 rounded-2xl bg-[#F0EEFF] flex items-center justify-center border border-purple-100/40 shadow-sm">
-                  <span className="text-3xl">{step.icon}</span>
+        <Stagger className="mt-16 grid gap-6 md:grid-cols-3">
+          {steps.map((step) => {
+            const Icon = step.icon;
+            return (
+              <RevealItem
+                key={step.num}
+                className="relative rounded-2xl border border-border bg-card p-7"
+              >
+                <div className="flex items-center justify-between">
+                  <span className="grid size-11 place-items-center rounded-xl bg-primary text-primary-foreground">
+                    <Icon className="size-5" strokeWidth={2} />
+                  </span>
+                  <span className="font-display text-sm font-semibold text-muted-foreground/60">
+                    {step.num}
+                  </span>
                 </div>
-
-                <div className="flex flex-col items-start text-left pt-1">
-                  <h4 className="text-xl font-extrabold text-black mb-1.5 tracking-tight">
-                    {step.num}. {step.title}
-                  </h4>
-                  <p className="text-zinc-600 text-sm font-medium leading-relaxed max-w-[240px]">
-                    {step.desc}
-                  </p>
-                </div>
-              </div>
-
-              {index < steps.length - 1 && (
-                <div className="hidden lg:block text-zinc-400 font-extrabold text-xl select-none lg:ml-8 xl:ml-12 tracking-widest pointer-events-none">
-                  •••➔
-                </div>
-              )}
-            </div>
-          ))}
-        </div>
+                <h3 className="mt-6 font-display text-lg font-semibold text-foreground">
+                  {step.title}
+                </h3>
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                  {step.desc}
+                </p>
+              </RevealItem>
+            );
+          })}
+        </Stagger>
       </div>
     </section>
   );

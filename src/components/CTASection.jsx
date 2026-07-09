@@ -1,33 +1,36 @@
 import { useNavigate } from "react-router-dom";
-import mascot from "../assets/mascot.png";
+import { ArrowRight } from "lucide-react";
+import Reveal from "./motion/Reveal";
 
 export default function CTASection() {
   const navigate = useNavigate();
   return (
-    <section className="w-full bg-white py-14 px-6">
-      <div className="max-w-4xl mx-auto bg-[#E8E9FA] rounded-2xl p-8 md:p-10 flex items-center justify-between shadow-sm border border-indigo-100/20">
-        <div className="flex flex-col items-center md:items-start text-center md:text-left gap-2 flex-1">
-          <h3 className="text-1xl md:text-2xl font-black text-black tracking-tight">
-            Ready to accelerate your learning ?
-          </h3>
-          <p className="text-[#2E2AA6] font-bold text-sm md:text-base mb-4">
-            Generate your first course today
+    <section id="about" className="py-20 sm:py-28">
+      <div className="mx-auto max-w-6xl px-6">
+        <Reveal className="relative overflow-hidden rounded-3xl bg-primary px-8 py-16 text-center sm:px-16 sm:py-20">
+          <h2 className="mx-auto max-w-2xl font-display text-3xl font-semibold tracking-tight text-primary-foreground sm:text-[2.6rem] sm:leading-[1.1]">
+            Start learning anything, today
+          </h2>
+          <p className="mx-auto mt-4 max-w-lg text-primary-foreground/70">
+            Generate your first course in under a minute. No credit card, no
+            commitment — just start.
           </p>
-          <button
-            onClick={() => navigate("/generate")}
-            className="w-full max-w-xs bg-gradient-to-r from-[#2917A8] via-[#63139C] to-[#1A62B8] text-white font-extrabold px-10 py-3.5 rounded-xl text-lg border-2 border-white/90 shadow-md hover:shadow-xl transition-all active:scale-95 cursor-pointer"
-          >
-            Generate course
-          </button>
-        </div>
-
-        <div className="w-36 h-36 md:w-44 md:h-44 shrink-0 flex items-center justify-center select-none z-10">
-          <img
-            src={mascot}
-            alt="AI Robot Mascot"
-            className="w-full h-full object-contain filter drop-shadow-[0_10px_15px_rgba(0,0,0,0.15)] animate-pulse"
-          />
-        </div>
+          <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+            <button
+              onClick={() => navigate("/sign-up")}
+              className="group inline-flex items-center gap-2 rounded-xl bg-background px-6 py-3.5 text-sm font-medium text-foreground transition-transform hover:-translate-y-0.5 active:translate-y-0"
+            >
+              Get started free
+              <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
+            </button>
+            <button
+              onClick={() => navigate("/login")}
+              className="rounded-xl border border-primary-foreground/20 px-6 py-3.5 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary-foreground/10"
+            >
+              Log in
+            </button>
+          </div>
+        </Reveal>
       </div>
     </section>
   );
