@@ -1,15 +1,15 @@
-import Navbar from "../components/Navbar";
-import HeroSection from "../components/HeroSection";
-import LogoCloud from "../components/LogoCloud";
-import StatsBand from "../components/StatsBand";
-import HowItWorks from "../components/HowItWorks";
-import FeaturesSection from "../components/FeatureSection";
-import ShowcaseSection from "../components/ShowcaseSection";
-import Testimonials from "../components/Testimonials";
-import Pricing from "../components/Pricing";
-import FAQ from "../components/FAQ";
-import CTASection from "../components/CTASection";
-import Footer from "../components/Footer";
+import Navbar from "@/components/layout/Navbar";
+import HeroSection from "@/components/landing/HeroSection";
+import LogoCloud from "@/components/landing/LogoCloud";
+import StatsBand from "@/components/landing/StatsBand";
+import HowItWorks from "@/components/landing/HowItWorks";
+import FeaturesSection from "@/components/landing/FeatureSection";
+import ShowcaseSection from "@/components/landing/ShowcaseSection";
+import Testimonials from "@/components/landing/Testimonials";
+// import Pricing from "@/components/landing/Pricing";
+import FAQ from "@/components/landing/FAQ";
+import CTASection from "@/components/landing/CTASection";
+import Footer from "@/components/layout/Footer";
 
 export default function LandingPage() {
   return (
@@ -23,7 +23,7 @@ export default function LandingPage() {
         <FeaturesSection />
         <ShowcaseSection />
         <Testimonials />
-        <Pricing />
+        {/* <Pricing /> */}
         <FAQ />
         <CTASection />
       </main>

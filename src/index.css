@@ -1,68 +1,68 @@
-@import url("https://api.fontshare.com/v2/css?f[]=general-sans@500,600,700&f[]=switzer@400,500,600,700&display=swap");
+@import url("https://api.fontshare.com/v2/css?f[]=satoshi@400,500,600,700&f[]=general-sans@500,600,700&f[]=switzer@400,500,600,700&display=swap");
 @import "tailwindcss";
 @import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
 
 /* ──────────────────────────────────────────────────────────────
-   Etech — clean, minimalist, adult-education design system
-   White canvas · near-black action color · one restrained blue accent
+   Etech — premium, minimal, trustworthy design system
+   Defined by design.md: Blue & Amber theme
    ────────────────────────────────────────────────────────────── */
 :root {
-  --radius: 0.75rem;
+  --radius: 1.5rem; /* 24px default radius for cards */
 
   /* Surfaces */
-  --background: #ffffff;
-  --foreground: #0a0a0b; /* ink */
-  --card: #ffffff;
-  --card-foreground: #0a0a0b;
-  --popover: #ffffff;
-  --popover-foreground: #0a0a0b;
+  --background: #F8FAFC;
+  --foreground: #0F172A;
+  --card: #FFFFFF;
+  --card-foreground: #0F172A;
+  --popover: #FFFFFF;
+  --popover-foreground: #0F172A;
 
-  /* Action color = near-black (premium, minimal) */
-  --primary: #111114;
-  --primary-foreground: #ffffff;
-  --secondary: #f4f4f5;
-  --secondary-foreground: #111114;
-  --muted: #f6f6f7;
-  --muted-foreground: #6b6b73;
-  --accent: #eff4ff; /* blue tint */
-  --accent-foreground: #1d4ed8;
-  --destructive: #dc2626;
+  /* Colors defined in design.md */
+  --primary: #1565C0;
+  --primary-foreground: #FFFFFF;
+  --secondary: #42A5F5;
+  --secondary-foreground: #FFFFFF;
+  --muted: #F1F5F9;
+  --muted-foreground: #64748B;
+  --accent: #FFB703;
+  --accent-foreground: #0F172A;
+  --destructive: #DC2626;
 
-  --border: #e9e9ec;
-  --input: #e9e9ec;
-  --ring: #111114;
+  --border: #E2E8F0;
+  --input: #E2E8F0;
+  --ring: #1565C0;
 
-  /* Single blue accent for highlights */
-  --brand: #2563eb;
-  --brand-foreground: #ffffff;
+  /* Brand maps to Primary */
+  --brand: #1565C0;
+  --brand-foreground: #FFFFFF;
 
-  --chart-1: #2563eb;
-  --chart-2: #111114;
-  --chart-3: #6b6b73;
-  --chart-4: #93b4f5;
-  --chart-5: #c7d6fb;
+  --chart-1: #1565C0;
+  --chart-2: #42A5F5;
+  --chart-3: #FFB703;
+  --chart-4: #64748B;
+  --chart-5: #E2E8F0;
 
   /* Legacy vars for pages not yet rebuilt */
-  --text: #6b6b73;
-  --text-h: #0a0a0b;
-  --bg: #ffffff;
-  --code-bg: #f4f4f5;
-  --sans: "Switzer", ui-sans-serif, system-ui, sans-serif;
-  --heading: "General Sans", ui-sans-serif, system-ui, sans-serif;
+  --text: #64748B;
+  --text-h: #0F172A;
+  --bg: #F8FAFC;
+  --code-bg: #F1F5F9;
+  --sans: "Satoshi", "Switzer", ui-sans-serif, system-ui, sans-serif;
+  --heading: "Satoshi", "General Sans", ui-sans-serif, system-ui, sans-serif;
   --mono: ui-monospace, Consolas, monospace;
 }
 
 @theme inline {
-  --font-sans: "Switzer", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "General Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Satoshi", "Switzer", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Satoshi", "General Sans", ui-sans-serif, system-ui, sans-serif;
   --font-mono: ui-monospace, "SFMono-Regular", Consolas, monospace;
 
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
+  --radius-sm: calc(var(--radius) - 12px); /* 12px */
+  --radius-md: calc(var(--radius) - 8px);  /* 16px */
+  --radius-lg: var(--radius);              /* 24px */
+  --radius-xl: calc(var(--radius) + 8px);  /* 32px */
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);

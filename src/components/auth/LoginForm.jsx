@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
-import InputField from "./InputField";
-import formFields from "../data/formFields";
+import InputField from "@/components/ui/InputField";
+import formFields from "@/data/formFields";
 
 export default function LoginForm({
   loginData,
@@ -44,20 +44,20 @@ export default function LoginForm({
 
       <button
         type="button"
-        className="text-white text-sm font-bold hover:underline self-end tracking-wide mb-4 transition-all bg-transparent outline-none cursor-pointer border-none"
+        className="text-muted-foreground hover:text-foreground text-sm font-semibold hover:underline self-end tracking-wide mb-4 transition-all bg-transparent outline-none cursor-pointer border-none"
       >
-        Forgot Password ?
+        Forgot Password?
       </button>
 
       <div className="flex items-center justify-center gap-5 w-full max-w-sm mx-auto mt-4">
         <button
           type="submit"
           disabled={!isFormValid}
-          className={`flex-1 py-3 px-8 rounded-xl font-bold text-xl tracking-wide transition-all duration-300 border-2 border-transparent
+          className={`flex-1 h-[52px] px-8 rounded-full font-bold text-lg tracking-wide transition-all duration-250 border border-transparent
             ${
               !isFormValid
-                ? "bg-white/20 text-zinc-500 cursor-not-allowed"
-                : "bg-white text-black hover:bg-transparent hover:text-white hover:border-white shadow-md active:scale-95 cursor-pointer"
+                ? "bg-muted text-muted-foreground/60 cursor-not-allowed"
+                : "bg-primary text-primary-foreground hover:bg-primary/95 shadow-sm hover:shadow-md hover:-translate-y-0.5 active:translate-y-0 cursor-pointer"
             }`}
         >
           Sign in
@@ -66,9 +66,10 @@ export default function LoginForm({
         <button
           type="button"
           onClick={() => navigate("/sign-up")}
-          className="text-white text-base font-bold leading-tight hover:text-zinc-300 text-left transition-colors cursor-pointer tracking-wide whitespace-pre-line max-w-[120px] select-none bg-transparent outline-none border-none"
+          className="text-foreground hover:text-primary text-base font-bold leading-tight text-left transition-colors duration-250 cursor-pointer tracking-wide whitespace-pre-line max-w-[120px] select-none bg-transparent outline-none border-none"
         >
-          Create account
+          Create
+          account
         </button>
       </div>
     </form>

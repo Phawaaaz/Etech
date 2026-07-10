@@ -1,6 +1,6 @@
-import steps from "../data/howItWorkSteps";
-import SectionHeading from "./landing/SectionHeading";
-import { Stagger, RevealItem } from "./motion/Reveal";
+import steps from "@/data/howItWorkSteps";
+import SectionHeading from "@/components/landing/SectionHeading";
+import { Stagger, RevealItem } from "@/components/motion/Reveal";
 
 export default function HowItWorks() {
   return (

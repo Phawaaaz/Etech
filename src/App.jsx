@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route, Navigate, Outlet } from "react-router-dom";
+import { Toaster } from "@/components/ui/sonner";
 import Layout from "./pages/Layout";
 import Dashboard from "./pages/Dashboard";
 import GenerationView from "./pages/GenerationView";
@@ -12,6 +13,7 @@ import CourseModuleView from "./pages/CourseModuleView";
 import CourseQuizView from "./pages/CourseQuizView";
 import Result from "./pages/Result";
 import CreateCourse from "./pages/CreateCourse";
+import Onboarding from "./pages/Onboarding";
 
 function ProtectedRoute() {
   const token = localStorage.getItem("token");
@@ -21,6 +23,7 @@ function ProtectedRoute() {
 export default function App() {
   return (
     <Router>
+      <Toaster richColors position="top-center" />
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/sign-up" element={<SignUp />} />
@@ -28,6 +31,7 @@ export default function App() {
         
         {/* Protected Routes */}
         <Route element={<ProtectedRoute />}>
+          <Route path="/onboarding" element={<Onboarding />} />
           <Route element={<Layout />}>
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/generate" element={<GenerationView />} />

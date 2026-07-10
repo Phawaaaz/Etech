@@ -32,18 +32,17 @@ export default function HeroSection() {
   const navigate = useNavigate();
   const [topic, setTopic] = useState("");
 
+  const handleStart = () => {
+    if (topic.trim()) {
+      sessionStorage.setItem("pending_topic", topic.trim());
+    }
+    navigate("/create-course");
+  };
+
   return (
-    <section className="relative overflow-hidden">
-      <div className="mx-auto max-w-3xl px-6 pt-16 text-center sm:pt-24">
+    <section className="relative overflow-hidden pt-[96px] pb-[120px]">
+      <div className="mx-auto max-w-3xl px-6 text-center">
         <motion.div initial="hidden" animate="show">
-          <motion.span
-            variants={rise}
-            custom={0}
-            className="inline-flex items-center gap-2 rounded-full border border-border bg-secondary/60 px-3.5 py-1.5 text-xs font-medium text-muted-foreground"
-          >
-            <Sparkles className="size-3.5 text-brand" />
-            AI course generation for professionals
-          </motion.span>
 
           <motion.h1
             variants={rise}
@@ -58,27 +57,24 @@ export default function HeroSection() {
             custom={2}
             className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-muted-foreground"
           >
-            Etech turns any topic into a structured course — lessons, diagrams,
-            quizzes and projects — built around your level and your schedule.
+            Etech transforms any topic into a complete, structured course with lessons, diagrams, quizzes, and hands-on projects tailored to your knowledge level and learning schedule.
           </motion.p>
 
           <motion.div
             variants={rise}
             custom={3}
-            className="mx-auto mt-8 flex max-w-md flex-col items-center gap-2.5 sm:flex-row"
+            className="mx-auto mt-8 flex max-w-md flex-col items-center gap-3 sm:flex-row"
           >
             <input
               value={topic}
               onChange={(e) => setTopic(e.target.value)}
-              onKeyDown={(e) =>
-                e.key === "Enter" && navigate(topic.trim() ? "/select-topic" : "/generate")
-              }
+              onKeyDown={(e) => e.key === "Enter" && handleStart()}
               placeholder="e.g. Financial modeling"
-              className="h-12 w-full rounded-xl border border-border bg-card px-4 text-sm font-medium text-foreground placeholder-muted-foreground/70 outline-none transition-colors focus-visible:border-foreground/30 focus-visible:ring-2 focus-visible:ring-foreground/10"
+              className="h-[52px] w-full rounded-full border border-border bg-card px-5 text-sm font-medium text-foreground placeholder-muted-foreground/70 outline-none transition-all focus-visible:border-primary/50 focus-visible:ring-2 focus-visible:ring-primary/10"
             />
             <button
-              onClick={() => navigate("/generate")}
-              className="group inline-flex h-12 w-full shrink-0 items-center justify-center gap-2 rounded-xl bg-primary px-5 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90 active:translate-y-px sm:w-auto"
+              onClick={handleStart}
+              className="group inline-flex h-[52px] w-full shrink-0 items-center justify-center gap-2 rounded-full bg-primary px-6 text-sm font-medium text-primary-foreground transition-all duration-250 hover:bg-primary/95 hover:-translate-y-0.5 hover:shadow-md active:translate-y-0 sm:w-auto cursor-pointer"
             >
               Start free
               <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
@@ -116,8 +112,8 @@ export default function HeroSection() {
         transition={{ duration: 0.7, ease, delay: 0.3 }}
         className="mx-auto mt-14 max-w-3xl px-6"
       >
-        <div className="overflow-hidden rounded-2xl border border-border bg-card shadow-[0_2px_4px_rgba(10,10,11,0.02),0_24px_60px_-30px_rgba(10,10,11,0.28)]">
-          <div className="flex items-center gap-1.5 border-b border-border bg-secondary/50 px-4 py-3">
+        <div className="overflow-hidden rounded-3xl border border-border bg-card shadow-sm hover:shadow-md transition-shadow">
+          <div className="flex items-center gap-1.5 border-b border-border bg-muted px-4 py-3">
             <span className="size-2.5 rounded-full bg-border" />
             <span className="size-2.5 rounded-full bg-border" />
             <span className="size-2.5 rounded-full bg-border" />

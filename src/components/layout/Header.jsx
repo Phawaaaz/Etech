@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
-import avatar from "../assets/avatar.svg";
+import avatar from "@/assets/avatar.svg";
+import Logo from "@/components/ui/Logo";
 
 export default function Header() {
   const navigate = useNavigate();
@@ -8,9 +9,9 @@ export default function Header() {
     <header className="flex items-center justify-between w-full px-2 sm:px-2 py-2">
       <div
         onClick={() => navigate("/dashboard")}
-        className="bg-black text-white font-bold text-xl px-4 py-2 rounded-lg border border-gray-800 tracking-wider cursor-pointer select-none"
+        className="cursor-pointer select-none"
       >
-        E-A.I
+        <Logo />
       </div>
       <button
         onClick={() => navigate("/profile")}

@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { Check } from "lucide-react";
-import SectionHeading from "./landing/SectionHeading";
-import { Stagger, RevealItem } from "./motion/Reveal";
+import SectionHeading from "@/components/landing/SectionHeading";
+import { Stagger, RevealItem } from "@/components/motion/Reveal";
 
 const plans = [
   {
