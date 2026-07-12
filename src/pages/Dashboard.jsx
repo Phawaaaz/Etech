@@ -30,10 +30,10 @@ const itemVariants = {
 };
 
 const suggestionChips = [
-  { topic: "Comprehensive guide to Quantum Computing", format: "course", level: "Beginner", label: "Quantum Computing 🔬" },
-  { topic: "TypeScript Design Patterns and Architecture", format: "course", level: "Advanced", label: "TypeScript Patterns 💻" },
-  { topic: "Introductory audio overview of Greek Philosophy", format: "audio", level: "Beginner", label: "Greek Philosophy 🎙️" },
-  { topic: "Visual overview of CSS Grid layouts", format: "video", level: "Intermediate", label: "CSS Grid layout 🎥" },
+  { topic: "Quantum Computing", format: "course", level: "Beginner", label: "Quantum Computing 🔬" },
+  { topic: "TypeScript Design Patterns", format: "course", level: "Advanced", label: "TypeScript Patterns 💻" },
+  { topic: "Greek Philosophy", format: "audio", level: "Beginner", label: "Greek Philosophy 🎙️" },
+  { topic: "CSS Grid Layouts", format: "video", level: "Intermediate", label: "CSS Grid layout 🎥" },
 ];
 
 
