@@ -3,6 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { apiFetch } from "../utils/api";
 import OptionButton from "@/components/ui/OptionButton";
 import formatOptions from "../data/formatOptions";
+import avatar from "@/assets/avatar.svg";
+
+
 
 export default function Dashboard() {
   const navigate = useNavigate();
@@ -81,10 +84,28 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="w-full max-w-5xl px-4 flex flex-col pb-16 font-sans select-text">
+    <div className="w-full max-w-5xl mx-auto px-4 flex flex-col pb-16 font-sans select-text">
       
+      {/* Top Profile Header */}
+      <div className="flex justify-between items-center mb-6 mt-4 select-none">
+        <div>
+          <span className="text-xs uppercase tracking-widest text-muted-foreground font-bold block">
+            {currentDate}
+          </span>
+        </div>
+        <div className="flex items-center gap-4">
+          <div 
+            onClick={() => navigate("/profile")}
+            className="w-10 h-10 rounded-full border-2 border-border overflow-hidden bg-muted cursor-pointer shrink-0 hover:border-primary/50 transition-all duration-200"
+            title="Profile"
+          >
+            <img src={avatar} alt="Avatar" className="w-full h-full object-cover" />
+          </div>
+        </div>
+      </div>
+
       {/* Bento Grid Header */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12 mt-6">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
         
         {/* Bento Welcome Card */}
         <div className="col-span-1 md:col-span-2 bg-zinc-950 text-white rounded-3xl p-8 shadow-sm flex flex-col justify-between min-h-[220px] relative overflow-hidden group">
@@ -95,9 +116,13 @@ export default function Dashboard() {
             <span className="text-3xs uppercase tracking-widest text-zinc-400 font-extrabold select-none">
               {currentDate}
             </span>
-            <h1 className="text-3xl font-black text-white mt-3 leading-tight select-none">
-              Welcome Back, {userProfile?.user?.name || "Learner"} 👋
-            </h1>
+            {loading ? (
+              <div className="h-8 w-48 bg-zinc-800 rounded-xl animate-pulse mt-3" />
+            ) : (
+              <h1 className="text-3xl font-black text-white mt-3 leading-tight select-none">
+                Welcome Back, {userProfile?.user?.name || "Learner"} 👋
+              </h1>
+            )}
             <p className="text-zinc-350 text-sm mt-2 max-w-md font-medium leading-relaxed">
               Ready to master a new skill? Design custom multi-section courses or generate targeted bite-sized lessons instantly.
             </p>
@@ -119,19 +144,27 @@ export default function Dashboard() {
             
             <div className="flex gap-8 mt-6">
               <div>
-                <span className="block text-4xl font-black text-zinc-950">
-                  {userProfile?.stats?.totalCourses ?? courses.length}
-                </span>
-                <span className="text-3xs font-extrabold text-zinc-500 uppercase tracking-wider block mt-1 select-none">
+                {loading ? (
+                  <div className="h-10 w-16 bg-muted rounded-xl animate-pulse mt-2" />
+                ) : (
+                  <span className="block text-4xl font-black text-zinc-950 dark:text-white">
+                    {userProfile?.stats?.totalCourses ?? courses.length}
+                  </span>
+                )}
+                <span className="text-3xs font-extrabold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider block mt-1 select-none">
                   Courses Built
                 </span>
               </div>
               <div className="w-px bg-border/60" />
               <div>
-                <span className="block text-4xl font-black text-primary">
-                  {userProfile?.stats?.sectionsCompleted ?? 0}
-                </span>
-                <span className="text-3xs font-extrabold text-zinc-500 uppercase tracking-wider block mt-1 select-none">
+                {loading ? (
+                  <div className="h-10 w-16 bg-muted rounded-xl animate-pulse mt-2" />
+                ) : (
+                  <span className="block text-4xl font-black text-primary dark:text-blue-400">
+                    {userProfile?.stats?.sectionsCompleted ?? 0}
+                  </span>
+                )}
+                <span className="text-3xs font-extrabold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider block mt-1 select-none">
                   Modules Done
                 </span>
               </div>
@@ -153,7 +186,7 @@ export default function Dashboard() {
 
       {/* Action Row */}
       <div className="flex justify-between items-center mb-8 border-b pb-4 border-border text-left select-none">
-        <h3 className="text-2xl font-bold text-zinc-950">Your Generated Courses</h3>
+        <h3 className="text-2xl font-bold text-zinc-950 dark:text-white">Your Generated Courses</h3>
         <button
           onClick={() => navigate("/create-course")}
           className="bg-primary hover:bg-primary/95 text-primary-foreground font-bold px-6 py-2.5 rounded-full text-sm transition-all duration-250 hover:-translate-y-0.5 hover:shadow-md active:translate-y-0 shadow-sm flex items-center gap-1.5 cursor-pointer"
@@ -209,24 +242,24 @@ export default function Dashboard() {
                     </span>
                     <button
                       onClick={(e) => handleDeleteCourse(course._id, e)}
-                      className="text-zinc-400 hover:text-red-650 p-1.5 rounded-full transition opacity-0 group-hover:opacity-100 absolute top-0 right-0 hover:bg-red-50 z-20 cursor-pointer"
+                      className="text-zinc-400 hover:text-red-500 hover:bg-rose-50 dark:hover:bg-rose-950/30 p-1.5 rounded-full transition-all duration-200 z-20 cursor-pointer hover:scale-110 active:scale-95"
                       title="Delete Course"
                     >
-                      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                       </svg>
                     </button>
                   </div>
-                  <h4 className="font-extrabold text-zinc-950 text-lg md:text-xl line-clamp-2 leading-snug">
+                  <h4 className="font-extrabold text-zinc-950 dark:text-white text-lg md:text-xl line-clamp-2 leading-snug">
                     {course.topic}
                   </h4>
-                  <p className="text-zinc-500 text-xs font-semibold mt-1">
+                  <p className="text-zinc-500 dark:text-zinc-400 text-xs font-semibold mt-1">
                     Subject: {course.subject}
                   </p>
                 </div>
 
                 <div className="border-t border-border pt-3 flex justify-between items-center mt-3 select-none relative z-10">
-                  <span className="text-xs font-bold text-zinc-500">
+                  <span className="text-xs font-bold text-zinc-500 dark:text-zinc-400">
                     Est: {course.estimatedHours} Hours
                   </span>
                   <span className="text-sm font-bold text-primary flex items-center gap-1 group-hover:translate-x-1 transition-transform">
@@ -246,7 +279,7 @@ export default function Dashboard() {
       <div className="bg-card border border-border rounded-3xl p-8 md:p-10 text-left shadow-sm relative overflow-hidden group">
         <div className="absolute -top-24 -left-24 w-64 h-64 bg-secondary/5 rounded-full blur-[90px] pointer-events-none" />
         
-        <h3 className="text-2xl font-bold text-zinc-950 mb-2 relative z-10">
+        <h3 className="text-2xl font-bold text-zinc-950 dark:text-white mb-2 relative z-10">
           Format Generator
         </h3>
         <p className="text-muted-foreground text-sm md:text-base font-medium mb-8 relative z-10">

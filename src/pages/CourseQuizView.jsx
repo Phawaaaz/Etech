@@ -103,20 +103,20 @@ export default function CourseQuizView() {
             title="Syllabus"
           />
         </div>
-        <div className="font-extrabold text-sm md:text-base tracking-[0.25rem] text-center shrink-0 uppercase text-zinc-950">
+        <div className="font-extrabold text-sm md:text-base tracking-[0.25rem] text-center shrink-0 uppercase text-zinc-950 dark:text-white">
           {section.title}
         </div>
         <div className="flex-1"></div>
       </div>
 
-      <main className="flex-1 w-full max-w-4xl mx-auto px-6 md:px-8 py-8 flex flex-col text-left text-zinc-800">
+      <main className="flex-1 w-full max-w-4xl mx-auto px-6 md:px-8 py-8 flex flex-col text-left text-zinc-800 dark:text-zinc-200">
         
         {/* Header Title */}
         <div className="border-b border-border pb-4 mb-8">
           <span className="text-xs font-bold text-primary bg-primary/5 px-3 py-1 rounded-full uppercase tracking-wider select-none">
             Module {section.order} Quiz
           </span>
-          <h2 className="text-3xl font-black text-zinc-950 mt-3 uppercase leading-tight">
+          <h2 className="text-3xl font-black text-zinc-950 dark:text-white mt-3 uppercase leading-tight">
             Knowledge Check
           </h2>
         </div>
@@ -125,17 +125,39 @@ export default function CourseQuizView() {
         {quizResult ? (
           <div className="w-full flex flex-col items-center py-6">
             
-            {/* Score circle */}
-            <div className={`relative h-40 w-40 flex items-center justify-center mb-6 rounded-full border-4 ${
-              quizResult.passed ? "border-emerald-500 bg-emerald-50/25" : "border-rose-500 bg-rose-50/25"
-            }`}>
-              <div className="text-center">
+            {/* Dynamic SVG Score ring */}
+            <div className="relative h-40 w-40 flex items-center justify-center mb-6 select-none">
+              <svg className="absolute w-full h-full transform -rotate-90" viewBox="0 0 160 160">
+                {/* Background Ring */}
+                <circle
+                  cx="80"
+                  cy="80"
+                  r="70"
+                  className="stroke-zinc-200 dark:stroke-zinc-800"
+                  strokeWidth="8"
+                  fill="transparent"
+                />
+                {/* Active Progress Ring */}
+                <circle
+                  cx="80"
+                  cy="80"
+                  r="70"
+                  className={quizResult.passed ? "stroke-emerald-500" : "stroke-rose-500"}
+                  strokeWidth="8"
+                  fill="transparent"
+                  strokeDasharray={2 * Math.PI * 70}
+                  strokeDashoffset={2 * Math.PI * 70 * (1 - quizResult.score / 100)}
+                  strokeLinecap="round"
+                  style={{ transition: "stroke-dashoffset 1s ease-in-out" }}
+                />
+              </svg>
+              <div className="text-center z-10">
                 <span className={`text-4xl font-black ${
-                  quizResult.passed ? "text-emerald-700" : "text-rose-700"
+                  quizResult.passed ? "text-emerald-600 dark:text-emerald-400" : "text-rose-600 dark:text-rose-400"
                 }`}>
                   {quizResult.score}%
                 </span>
-                <span className="text-zinc-500 text-3xs font-extrabold uppercase tracking-widest block mt-0.5">
+                <span className="text-zinc-500 dark:text-zinc-400 text-3xs font-extrabold uppercase tracking-widest block mt-0.5">
                   {quizResult.correctCount} / {quizResult.totalQuestions} Correct
                 </span>
               </div>
@@ -153,8 +175,10 @@ export default function CourseQuizView() {
               {quizResult.feedback.map((f, idx) => (
                 <div
                   key={idx}
-                  className={`border rounded-3xl p-6 shadow-sm ${
-                    f.correct ? "border-emerald-200 bg-emerald-50/10" : "border-rose-200 bg-rose-50/10"
+                  className={`border rounded-3xl p-6 shadow-sm transition-all duration-300 hover:shadow-md ${
+                    f.correct 
+                      ? "border-emerald-250 dark:border-emerald-800/50 bg-emerald-50/5 dark:bg-emerald-950/5" 
+                      : "border-rose-250 dark:border-rose-800/50 bg-rose-50/5 dark:bg-rose-950/5"
                   }`}
                 >
                   <div className="flex items-center gap-2 mb-3">
@@ -163,24 +187,24 @@ export default function CourseQuizView() {
                     }`}>
                       {f.correct ? "✓" : "✗"}
                     </span>
-                    <h4 className="font-bold text-zinc-900 text-base md:text-lg">
+                    <h4 className="font-bold text-zinc-900 dark:text-white text-base md:text-lg">
                       Question {idx + 1}: {f.question}
                     </h4>
                   </div>
 
                   <div className="mt-3 space-y-2 text-sm md:text-base">
-                    <p className="font-medium text-zinc-700">
-                      Your Answer: <span className={f.correct ? "text-emerald-700 font-bold" : "text-rose-700 font-bold"}>{f.yourAnswer || "[No Answer]"}</span>
+                    <p className="font-medium text-zinc-700 dark:text-zinc-300">
+                      Your Answer: <span className={f.correct ? "text-emerald-700 dark:text-emerald-400 font-bold" : "text-rose-700 dark:text-rose-400 font-bold"}>{f.yourAnswer || "[No Answer]"}</span>
                     </p>
                     {!f.correct && (
-                      <p className="font-medium text-emerald-800">
+                      <p className="font-medium text-emerald-800 dark:text-emerald-400">
                         Correct Answer: <span className="font-bold">{f.correctAnswer}</span>
                       </p>
                     )}
                   </div>
 
-                  <div className="mt-4 p-4 rounded-2xl bg-card border border-border text-xs md:text-sm text-zinc-650 leading-relaxed font-medium">
-                    <span className="font-extrabold text-primary block mb-1">Explanation:</span>
+                  <div className="mt-4 p-4 rounded-2xl bg-card border border-border dark:bg-zinc-900/60 text-xs md:text-sm text-zinc-650 dark:text-zinc-300 leading-relaxed font-medium">
+                    <span className="font-extrabold text-primary dark:text-blue-400 block mb-1">Explanation:</span>
                     {f.explanation}
                   </div>
                 </div>
@@ -220,7 +244,7 @@ export default function CourseQuizView() {
                     <span className="h-8 w-8 rounded-full bg-primary/10 text-primary flex items-center justify-center font-extrabold text-sm select-none">
                       {qIdx + 1}
                     </span>
-                    <h3 className="text-lg md:text-xl font-bold text-zinc-900 leading-snug">
+                    <h3 className="text-lg md:text-xl font-bold text-zinc-900 dark:text-white leading-snug">
                       {q.question}
                     </h3>
                   </div>
@@ -233,16 +257,16 @@ export default function CourseQuizView() {
                           type="button"
                           key={oIdx}
                           onClick={() => handleSelectOption(qIdx, opt)}
-                          className={`w-full py-4 px-6 rounded-2xl border text-left text-base transition duration-200 flex items-center gap-3 cursor-pointer ${
+                          className={`w-full py-4 px-6 rounded-2xl border text-left text-base transition-all duration-200 flex items-center gap-3 cursor-pointer hover:-translate-y-0.5 hover:shadow-md active:scale-[0.98] ${
                             isSelected
-                              ? "bg-primary/5 border-primary text-primary font-semibold"
-                              : "bg-card hover:bg-zinc-50 border-border text-zinc-800 hover:scale-[1.01]"
+                              ? "bg-primary/5 border-primary text-primary font-semibold dark:bg-primary/10 dark:text-blue-400 dark:border-primary"
+                              : "bg-card hover:bg-zinc-50 dark:hover:bg-zinc-800/50 border-border text-zinc-800 dark:text-zinc-200"
                           }`}
                         >
                           <span className={`h-6 w-6 rounded-full border flex items-center justify-center font-bold text-xs select-none ${
                             isSelected
                               ? "bg-primary border-primary text-white"
-                              : "border-zinc-300 text-zinc-400"
+                              : "border-zinc-300 dark:border-zinc-700 text-zinc-400 dark:text-zinc-500"
                           }`}>
                             {String.fromCharCode(65 + oIdx)}
                           </span>

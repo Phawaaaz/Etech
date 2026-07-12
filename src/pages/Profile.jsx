@@ -6,7 +6,7 @@ export default function Profile() {
   const navigate = useNavigate();
 
   const menuItems = [
-    { id: "recents", label: "Recents", path: "/recents" },
+    { id: "recents", label: "Recents", path: "/courses" },
     { id: "settings", label: "Settings", path: "/settings" },
     { id: "test-history", label: "Test History", path: "/test-history" },
     { id: "privacy", label: "Privacy", path: "/privacy" },

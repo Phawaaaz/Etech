@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate, Outlet } from "react-router-dom";
 import { Toaster } from "@/components/ui/sonner";
 import Layout from "./pages/Layout";
@@ -14,6 +15,10 @@ import CourseQuizView from "./pages/CourseQuizView";
 import Result from "./pages/Result";
 import CreateCourse from "./pages/CreateCourse";
 import Onboarding from "./pages/Onboarding";
+import SidebarLayout from "./components/layout/SidebarLayout";
+import CoursesList from "./pages/CoursesList";
+import Settings from "./pages/Settings";
+import Community from "./pages/Community";
 
 function ProtectedRoute() {
   const token = localStorage.getItem("token");
@@ -21,6 +26,15 @@ function ProtectedRoute() {
 }
 
 export default function App() {
+  useEffect(() => {
+    const theme = localStorage.getItem("theme");
+    if (theme === "dark") {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  }, []);
+
   return (
     <Router>
       <Toaster richColors position="top-center" />
@@ -32,8 +46,14 @@ export default function App() {
         {/* Protected Routes */}
         <Route element={<ProtectedRoute />}>
           <Route path="/onboarding" element={<Onboarding />} />
-          <Route element={<Layout />}>
+          <Route element={<SidebarLayout />}>
             <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/courses" element={<CoursesList />} />
+            <Route path="/community" element={<Community />} />
+            <Route path="/settings" element={<Settings />} />
+          </Route>
+
+          <Route element={<Layout />}>
             <Route path="/generate" element={<GenerationView />} />
             <Route path="/select-topic" element={<TopicSelectionView />} />
             <Route path="/result" element={<Result />} />

@@ -51,7 +51,10 @@ export default function Login() {
                 required
                 value={loginData.email}
                 onChange={handleInputChange}
-                className="block w-full rounded-2xl border border-border/80 bg-zinc-50 px-4 py-3 text-foreground placeholder-muted-foreground/60 focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 sm:text-sm font-semibold transition-all shadow-3xs"
+                disabled={submitting}
+                className={`block w-full rounded-2xl border border-border/80 bg-zinc-50 px-4 py-3 text-foreground placeholder-muted-foreground/60 focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 sm:text-sm font-semibold transition-all shadow-3xs ${
+                  submitting ? "opacity-50 cursor-not-allowed" : ""
+                }`}
                 placeholder="name@email.com"
               />
               {emailError && (
@@ -75,7 +78,10 @@ export default function Login() {
                 required
                 value={loginData.password}
                 onChange={handleInputChange}
-                className="block w-full rounded-2xl border border-border/80 bg-zinc-50 px-4 py-3 text-foreground placeholder-muted-foreground/60 focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 sm:text-sm font-semibold transition-all shadow-3xs"
+                disabled={submitting}
+                className={`block w-full rounded-2xl border border-border/80 bg-zinc-50 px-4 py-3 text-foreground placeholder-muted-foreground/60 focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 sm:text-sm font-semibold transition-all shadow-3xs ${
+                  submitting ? "opacity-50 cursor-not-allowed" : ""
+                }`}
                 placeholder="Password"
               />
             </div>
@@ -85,14 +91,20 @@ export default function Login() {
             <button
               type="button"
               onClick={() => navigate("/sign-up")}
-              className="text-sm font-bold text-muted-foreground hover:text-foreground hover:underline underline-offset-4 transition-colors cursor-pointer bg-transparent border-none outline-none"
+              disabled={submitting}
+              className={`text-sm font-bold text-muted-foreground hover:text-foreground hover:underline underline-offset-4 transition-colors cursor-pointer bg-transparent border-none outline-none ${
+                submitting ? "opacity-50 cursor-not-allowed pointer-events-none" : ""
+              }`}
             >
               Create account
             </button>
             <div className="text-sm">
               <button
                 type="button"
-                className="font-bold text-muted-foreground hover:text-foreground underline underline-offset-4 transition-colors cursor-pointer bg-transparent border-none outline-none"
+                disabled={submitting}
+                className={`font-bold text-muted-foreground hover:text-foreground underline underline-offset-4 transition-colors cursor-pointer bg-transparent border-none outline-none ${
+                  submitting ? "opacity-50 cursor-not-allowed pointer-events-none" : ""
+                }`}
               >
                 Forgot password?
               </button>
