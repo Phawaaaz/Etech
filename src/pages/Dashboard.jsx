@@ -153,6 +153,7 @@ export default function Dashboard() {
       navigate("/result", {
         state: {
           format: selectedFormat,
+          prompt: quickTopic,
           topic: quickTopic,
           level: quickLevel,
         },
