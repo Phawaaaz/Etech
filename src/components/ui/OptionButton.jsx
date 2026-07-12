@@ -1,8 +1,13 @@
+import { motion } from "framer-motion";
+
 export default function OptionButton({ label, icon, isSelected, onClick }) {
   return (
-    <button
+    <motion.button
       onClick={onClick}
-      className={`flex items-center gap-3 px-6 py-3.5 rounded-full font-bold text-base transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0 cursor-pointer shadow-3xs border-2 select-none
+      whileHover={{ y: -2, scale: 1.02 }}
+      whileTap={{ scale: 0.97 }}
+      transition={{ type: "spring", stiffness: 400, damping: 25 }}
+      className={`flex items-center gap-3 px-6 py-3.5 rounded-full font-bold text-base transition-all duration-200 cursor-pointer shadow-3xs border-2 select-none
         ${
           isSelected
             ? "bg-primary/10 text-primary border-primary"
@@ -17,6 +22,6 @@ export default function OptionButton({ label, icon, isSelected, onClick }) {
         />
       </div>
       <span>{label}</span>
-    </button>
+    </motion.button>
   );
 }
