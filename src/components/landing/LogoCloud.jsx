@@ -1,4 +1,4 @@
-import Reveal from "./motion/Reveal";
+import Reveal from "@/components/motion/Reveal";
 
 const companies = ["Google", "Stripe", "Notion", "Airbnb", "Figma", "Linear"];
 

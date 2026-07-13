@@ -1,5 +1,5 @@
 import { Globe, Mail, MessageCircle } from "lucide-react";
-import Logo from "./Logo";
+import Logo from "@/components/ui/Logo";
 
 const columns = [
   {

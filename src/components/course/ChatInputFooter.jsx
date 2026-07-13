@@ -1,4 +1,4 @@
-import blackArrowIcon from "../assets/black-arrow.svg";
+import blackArrowIcon from "@/assets/black-arrow.svg";
 
 export default function ChatInputFooter() {
   return (

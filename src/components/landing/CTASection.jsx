@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
-import Reveal from "./motion/Reveal";
+import Reveal from "@/components/motion/Reveal";
 
 export default function CTASection() {
   const navigate = useNavigate();

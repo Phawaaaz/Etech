@@ -1,4 +1,4 @@
-import arrowLeftIcon from "../assets/arrow-left.svg";
+import arrowLeftIcon from "@/assets/arrow-left.svg";
 
 export default function BackButton({ onClick, title }) {
   return (

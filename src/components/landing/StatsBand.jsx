@@ -1,4 +1,4 @@
-import { Stagger, RevealItem } from "./motion/Reveal";
+import { Stagger, RevealItem } from "@/components/motion/Reveal";
 
 const stats = [
   { value: "12,000+", label: "Active learners" },
@@ -9,7 +9,7 @@ const stats = [
 
 export default function StatsBand() {
   return (
-    <section className="border-y border-border bg-secondary/40 py-14">
+    <section className="border-y py-14">
       <div className="mx-auto max-w-6xl px-6">
         <Stagger className="grid grid-cols-2 gap-8 sm:grid-cols-4">
           {stats.map((s) => (

@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
-import avatar from "../assets/avatar.svg";
+import avatar from "@/assets/avatar.svg";
 import MenuButton from "./MenuButton";
+import Logo from "@/components/ui/Logo";
 
 export default function HeaderWithMenu() {
   const navigate = useNavigate();
@@ -10,9 +11,9 @@ export default function HeaderWithMenu() {
       <div className="flex items-center gap-5 md:gap-6">
         <div
           onClick={() => navigate("/dashboard")}
-          className="font-black text-2xl tracking-wider cursor-pointer select-none"
+          className="cursor-pointer select-none"
         >
-          E-A.I
+          <Logo />
         </div>
         <MenuButton />
       </div>

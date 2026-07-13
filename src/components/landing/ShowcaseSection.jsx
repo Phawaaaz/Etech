@@ -8,8 +8,8 @@ import {
   ClipboardCheck,
   RefreshCw,
 } from "lucide-react";
-import { Eyebrow } from "./landing/SectionHeading";
-import Reveal from "./motion/Reveal";
+import { Eyebrow } from "@/components/landing/SectionHeading";
+import Reveal from "@/components/motion/Reveal";
 
 const ease = [0.16, 1, 0.3, 1];
 

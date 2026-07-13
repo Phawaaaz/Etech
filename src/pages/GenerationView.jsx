@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import GenerateButton from "../components/GenerateButton";
+import GenerateButton from "@/components/ui/GenerateButton";
 
 export default function GenerationView() {
   const [prompt, setPrompt] = useState("");
@@ -23,7 +23,7 @@ export default function GenerationView() {
   if (!format) return null;
 
   return (
-    <div className="flex flex-col items-center w-full max-w-3xl px-4 text-zinc-900">
+    <div className="flex flex-col items-center w-full max-w-3xl px-4 text-foreground">
       <form
         onSubmit={handleGenerate}
         className="w-full flex flex-col items-center gap-8"
@@ -34,7 +34,7 @@ export default function GenerationView() {
             value={prompt}
             onChange={(e) => setPrompt(e.target.value)}
             placeholder={`Message E-A.I to generate ${format}...`}
-            className="w-full bg-[#5C5E62] text-white placeholder-white/60 px-6 py-4 rounded-full text-xl font-medium tracking-wide focus:outline-none focus:ring-2 focus:ring-gray-400 pr-16 transition-all shadow-md"
+            className="w-full bg-card border border-border text-foreground placeholder-muted-foreground/60 px-6 py-4.5 rounded-full text-xl font-semibold tracking-wide focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 pr-16 transition-all shadow-sm"
           />
         </div>
         <GenerateButton disabled={!prompt.trim()} />
