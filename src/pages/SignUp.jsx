@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Logo from "@/components/ui/Logo";
+import { toast } from "sonner";
 
 export default function SignUp() {
   const navigate = useNavigate();
@@ -12,6 +13,7 @@ export default function SignUp() {
     password: "",
     confirmPassword: "",
   });
+  const [submitting, setSubmitting] = useState(false);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -23,14 +25,28 @@ export default function SignUp() {
     formData.email.trim() !== "" &&
     formData.gender !== "" &&
     formData.password.trim() !== "" &&
-    formData.confirmPassword.trim() !== "";
+    formData.confirmPassword.trim() !== "" &&
+    !submitting;
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      if (isFormValid) {
+        handleSignUpSubmit(e);
+      } else {
+        e.preventDefault();
+      }
+    }
+  };
 
   const handleSignUpSubmit = (e) => {
     e.preventDefault();
     if (formData.password !== formData.confirmPassword) {
-      alert("Passwords do not match!");
+      toast.error("Passwords do not match!");
       return;
     }
+
+    setSubmitting(true);
+    const signUpToastId = toast.loading("Creating your account...");
 
     fetch("https://etechbackend.onrender.com/api/auth/register", {
       method: "POST",
@@ -56,11 +72,17 @@ export default function SignUp() {
           localStorage.setItem("user", JSON.stringify(data.data.user));
           // New registers go to onboarding
           localStorage.removeItem("onboarded");
+          toast.success("Account created successfully!", { id: signUpToastId });
           navigate("/onboarding");
+        } else {
+          toast.error("Registration failed.", { id: signUpToastId });
         }
       })
       .catch((err) => {
-        alert(err.message);
+        toast.error(err.message, { id: signUpToastId });
+      })
+      .finally(() => {
+        setSubmitting(false);
       });
   };
 
@@ -96,7 +118,11 @@ export default function SignUp() {
                 required
                 value={formData.name}
                 onChange={handleInputChange}
-                className="block w-full rounded-2xl border border-border/80 bg-zinc-50 px-4 py-3 text-foreground placeholder-muted-foreground/60 focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 sm:text-sm font-semibold transition-all shadow-3xs"
+                onKeyDown={handleKeyDown}
+                disabled={submitting}
+                className={`block w-full rounded-2xl border border-border/80 bg-zinc-50 px-4 py-3 text-foreground placeholder-muted-foreground/60 focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 sm:text-sm font-semibold transition-all shadow-3xs ${
+                  submitting ? "opacity-50 cursor-not-allowed" : ""
+                }`}
                 placeholder="Please enter a name"
               />
             </div>
@@ -114,7 +140,11 @@ export default function SignUp() {
                 required
                 value={formData.email}
                 onChange={handleInputChange}
-                className="block w-full rounded-2xl border border-border/80 bg-zinc-50 px-4 py-3 text-foreground placeholder-muted-foreground/60 focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 sm:text-sm font-semibold transition-all shadow-3xs"
+                onKeyDown={handleKeyDown}
+                disabled={submitting}
+                className={`block w-full rounded-2xl border border-border/80 bg-zinc-50 px-4 py-3 text-foreground placeholder-muted-foreground/60 focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 sm:text-sm font-semibold transition-all shadow-3xs ${
+                  submitting ? "opacity-50 cursor-not-allowed" : ""
+                }`}
                 placeholder="you@example.com"
               />
             </div>
@@ -130,7 +160,11 @@ export default function SignUp() {
                 required
                 value={formData.gender}
                 onChange={handleInputChange}
-                className="block w-full rounded-2xl border border-border/80 bg-zinc-50 px-4 py-3 text-foreground focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 sm:text-sm font-semibold cursor-pointer"
+                onKeyDown={handleKeyDown}
+                disabled={submitting}
+                className={`block w-full rounded-2xl border border-border/80 bg-zinc-50 px-4 py-3 text-foreground focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 sm:text-sm font-semibold cursor-pointer ${
+                  submitting ? "opacity-50 cursor-not-allowed" : ""
+                }`}
               >
                 <option value="" disabled hidden>
                   Select your gender
@@ -153,7 +187,11 @@ export default function SignUp() {
                 required
                 value={formData.password}
                 onChange={handleInputChange}
-                className="block w-full rounded-2xl border border-border/80 bg-zinc-50 px-4 py-3 text-foreground placeholder-muted-foreground/60 focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 sm:text-sm font-semibold transition-all shadow-3xs"
+                onKeyDown={handleKeyDown}
+                disabled={submitting}
+                className={`block w-full rounded-2xl border border-border/80 bg-zinc-50 px-4 py-3 text-foreground placeholder-muted-foreground/60 focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 sm:text-sm font-semibold transition-all shadow-3xs ${
+                  submitting ? "opacity-50 cursor-not-allowed" : ""
+                }`}
                 placeholder="••••••••"
               />
             </div>
@@ -171,7 +209,11 @@ export default function SignUp() {
                 required
                 value={formData.confirmPassword}
                 onChange={handleInputChange}
-                className="block w-full rounded-2xl border border-border/80 bg-zinc-50 px-4 py-3 text-foreground placeholder-muted-foreground/60 focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 sm:text-sm font-semibold transition-all shadow-3xs"
+                onKeyDown={handleKeyDown}
+                disabled={submitting}
+                className={`block w-full rounded-2xl border border-border/80 bg-zinc-50 px-4 py-3 text-foreground placeholder-muted-foreground/60 focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 sm:text-sm font-semibold transition-all shadow-3xs ${
+                  submitting ? "opacity-50 cursor-not-allowed" : ""
+                }`}
                 placeholder="••••••••"
               />
             </div>
@@ -181,14 +223,14 @@ export default function SignUp() {
           <div className="flex flex-col gap-4 select-none">
             <button
               type="submit"
-              disabled={!isFormValid}
+              disabled={!isFormValid || submitting}
               className={`group relative flex w-full justify-center px-4 py-3.5 text-sm font-bold uppercase tracking-widest transition-all duration-250 hover:-translate-y-0.5 active:translate-y-0 rounded-full shadow-sm select-none cursor-pointer border-none ${
-                !isFormValid
+                !isFormValid || submitting
                   ? "bg-muted text-muted-foreground/60 cursor-not-allowed border border-transparent"
                   : "bg-primary text-primary-foreground hover:bg-primary/95 hover:shadow-md"
               }`}
             >
-              Register
+              {submitting ? "Registering..." : "Register"}
             </button>
 
             <div className="text-center text-sm text-gray-500 mt-2">
@@ -196,7 +238,10 @@ export default function SignUp() {
               <button
                 type="button"
                 onClick={() => navigate("/login")}
-                className="font-bold text-black hover:underline underline-offset-4 cursor-pointer bg-transparent border-none outline-none"
+                disabled={submitting}
+                className={`font-bold text-black hover:underline underline-offset-4 cursor-pointer bg-transparent border-none outline-none ${
+                  submitting ? "opacity-50 cursor-not-allowed pointer-events-none" : ""
+                }`}
               >
                 Sign In
               </button>
