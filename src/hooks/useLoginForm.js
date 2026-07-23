@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 export default function useLoginForm(onSubmit) {
   const navigate = useNavigate();
@@ -9,6 +10,7 @@ export default function useLoginForm(onSubmit) {
   });
 
   const [emailError, setEmailError] = useState("");
+  const [submitting, setSubmitting] = useState(false);
 
   const validateEmailFormat = (email) => {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -18,7 +20,7 @@ export default function useLoginForm(onSubmit) {
   const isEmailValid = validateEmailFormat(loginData.email);
   const isFormComplete =
     loginData.email.trim() !== "" && loginData.password.trim() !== "";
-  const isFormValid = isFormComplete && isEmailValid;
+  const isFormValid = isFormComplete && isEmailValid && !submitting;
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -38,10 +40,13 @@ export default function useLoginForm(onSubmit) {
 
     if (!isEmailValid) {
       setEmailError(
-        "Please enter a valid email address containing '@' and standard domain extension",
+        "Please enter a valid email address containing '@' and standard domain extension"
       );
       return;
     }
+
+    setSubmitting(true);
+    const loginToastId = toast.loading("Verifying credentials...");
 
     fetch("https://etechbackend.onrender.com/api/auth/login", {
       method: "POST",
@@ -60,12 +65,18 @@ export default function useLoginForm(onSubmit) {
           localStorage.setItem("token", data.data.accessToken);
           localStorage.setItem("refreshToken", data.data.refreshToken);
           localStorage.setItem("user", JSON.stringify(data.data.user));
+          
+          toast.success("Welcome back!", { id: loginToastId });
+          
           if (onSubmit) onSubmit(data.data);
           navigate("/dashboard");
         }
       })
       .catch((err) => {
-        alert(err.message);
+        toast.error(err.message, { id: loginToastId });
+      })
+      .finally(() => {
+        setSubmitting(false);
       });
   };
 
@@ -77,5 +88,6 @@ export default function useLoginForm(onSubmit) {
     handleLoginSubmit,
     isFormValid,
     isEmailValid,
+    submitting,
   };
 }

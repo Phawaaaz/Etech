@@ -1,5 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
+import { OctagonXIcon } from "lucide-react";
 
 // A simple local Markdown parser helper for the Text format
 function renderMarkdown(text) {
@@ -242,58 +244,59 @@ export default function Result() {
   // ── Render Loading ─────────────────────────────────────────────────────────
   if (loading) {
     return (
-      <div className="w-full max-w-3xl flex flex-col items-center justify-center min-h-[50vh] px-4 font-sans text-center">
-        <div className="relative w-40 h-40 mb-8">
-          <div className="absolute inset-0 border-4 border-zinc-200 rounded-full"></div>
-          <div
-            className="absolute inset-0 border-4 border-indigo-600 rounded-full animate-spin"
-            style={{ borderTopColor: "transparent", animationDuration: "1.5s" }}
-          ></div>
-          <div className="absolute inset-0 flex items-center justify-center">
-            <span className="text-3xl font-black text-indigo-600">{loadingProgress}%</span>
+      <Card className="w-full max-w-2xl border border-border p-8 text-center flex flex-col items-center shadow-sm bg-card">
+        <CardHeader className="flex flex-col items-center">
+          <div className="relative w-36 h-36 mb-6">
+            <div className="absolute inset-0 border-4 border-zinc-100 rounded-full"></div>
+            <div
+              className="absolute inset-0 border-4 border-primary rounded-full animate-spin"
+              style={{ borderTopColor: "transparent", animationDuration: "1.5s" }}
+            ></div>
+            <div className="absolute inset-0 flex items-center justify-center">
+              <span className="text-2xl font-black text-primary">{loadingProgress}%</span>
+            </div>
           </div>
-        </div>
-
-        <h2 className="text-3xl font-bold text-zinc-800 mb-2 animate-pulse">Generating your learning resources</h2>
-        <p className="text-zinc-500 text-lg font-medium max-w-md italic">{loadingMessage}</p>
+          <CardTitle className="text-2xl font-black text-zinc-950 uppercase">Assembling Resources</CardTitle>
+          <CardDescription className="text-muted-foreground text-base italic font-medium mt-1">{loadingMessage}</CardDescription>
+        </CardHeader>
 
         {/* Shimmer layout */}
-        <div className="w-full mt-12 space-y-4 opacity-40">
-          <div className="h-6 bg-zinc-300 rounded w-3/4 animate-pulse"></div>
-          <div className="h-4 bg-zinc-300 rounded w-full animate-pulse"></div>
-          <div className="h-4 bg-zinc-300 rounded w-5/6 animate-pulse"></div>
-          <div className="h-4 bg-zinc-300 rounded w-2/3 animate-pulse"></div>
-        </div>
-      </div>
+        <CardContent className="w-full mt-4 space-y-4 opacity-40">
+          <div className="h-4 bg-zinc-200 rounded w-3/4 animate-pulse"></div>
+          <div className="h-3 bg-zinc-200 rounded w-full animate-pulse"></div>
+          <div className="h-3 bg-zinc-200 rounded w-5/6 animate-pulse"></div>
+          <div className="h-3 bg-zinc-200 rounded w-2/3 animate-pulse"></div>
+        </CardContent>
+      </Card>
     );
   }
 
   // ── Render Error ───────────────────────────────────────────────────────────
   if (error) {
     return (
-      <div className="w-full max-w-2xl bg-red-50/95 border-2 border-red-200 rounded-3xl p-8 shadow-xl text-center flex flex-col items-center">
-        <div className="h-16 w-16 bg-red-100 rounded-full flex items-center justify-center mb-6">
-          <svg className="h-8 w-8 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-          </svg>
-        </div>
-        <h2 className="text-2xl font-bold text-red-800 mb-3">Generation Failed</h2>
-        <p className="text-red-700 text-lg mb-8 font-medium leading-relaxed">{error}</p>
-        <div className="flex gap-4">
+      <Card className="w-full max-w-2xl border border-red-200 bg-red-50/20 p-8 text-center flex flex-col items-center shadow-sm">
+        <CardHeader className="flex flex-col items-center">
+          <div className="h-16 w-16 bg-red-100/60 rounded-full flex items-center justify-center mb-4">
+            <OctagonXIcon className="h-8 w-8 text-red-650" />
+          </div>
+          <CardTitle className="text-2xl font-black text-red-900 uppercase">Generation Failed</CardTitle>
+          <CardDescription className="text-red-700 text-base font-semibold leading-relaxed mt-2">{error}</CardDescription>
+        </CardHeader>
+        <CardFooter className="flex gap-4 border-none bg-transparent justify-center pt-6">
           <button
             onClick={() => navigate("/select-topic", { state: { format, prompt } })}
-            className="px-6 py-3 bg-red-600 text-white rounded-full font-bold hover:bg-red-700 transition shadow-md hover:scale-105 active:scale-95"
+            className="px-6 py-2.5 bg-red-600 text-white rounded-full font-bold hover:bg-red-700 transition shadow-sm active:scale-95 duration-250 cursor-pointer"
           >
             Adjust Options
           </button>
           <button
-            onClick={() => navigate("/")}
-            className="px-6 py-3 bg-zinc-800 text-white rounded-full font-bold hover:bg-zinc-900 transition shadow-md hover:scale-105 active:scale-95"
+            onClick={() => navigate("/dashboard")}
+            className="px-6 py-2.5 border border-border bg-card text-foreground rounded-full font-bold hover:bg-secondary transition shadow-sm active:scale-95 duration-250 cursor-pointer"
           >
             Go back to Dashboard
           </button>
-        </div>
-      </div>
+        </CardFooter>
+      </Card>
     );
   }
 
