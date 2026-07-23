@@ -1,12 +1,10 @@
 import { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate, Outlet } from "react-router-dom";
-import { EtechProvider } from "./context/EtechContext";
 import { Toaster } from "@/components/ui/sonner";
 import Layout from "./pages/Layout";
 import Dashboard from "./pages/Dashboard";
 import GenerationView from "./pages/GenerationView";
 import TopicSelectionView from "./pages/TopicSelectionView";
-import ResultView from "./pages/ResultView";
 import LandingPage from "./pages/LandingPage";
 import SignUp from "./pages/SignUp";
 import Login from "./pages/Login";
@@ -14,6 +12,7 @@ import Profile from "./pages/Profile";
 import CourseIndexView from "./pages/CourseIndexView";
 import CourseModuleView from "./pages/CourseModuleView";
 import CourseQuizView from "./pages/CourseQuizView";
+import Result from "./pages/Result";
 import CreateCourse from "./pages/CreateCourse";
 import Onboarding from "./pages/Onboarding";
 import SidebarLayout from "./components/layout/SidebarLayout";
@@ -37,37 +36,35 @@ export default function App() {
   }, []);
 
   return (
-    <EtechProvider>
-      <Router>
-        <Toaster richColors position="top-center" />
-        <Routes>
-          <Route path="/" element={<LandingPage />} />
-          <Route path="/sign-up" element={<SignUp />} />
-          <Route path="/login" element={<Login />} />
+    <Router>
+      <Toaster richColors position="top-center" />
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/sign-up" element={<SignUp />} />
+        <Route path="/login" element={<Login />} />
 
-          <Route element={<ProtectedRoute />}>
-            <Route path="/onboarding" element={<Onboarding />} />
-            <Route element={<SidebarLayout />}>
-              <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/courses" element={<CoursesList />} />
-              <Route path="/community" element={<Community />} />
-              <Route path="/settings" element={<Settings />} />
-            </Route>
-
-            <Route element={<Layout />}>
-              <Route path="/generate" element={<GenerationView />} />
-              <Route path="/select-topic" element={<TopicSelectionView />} />
-              <Route path="/result" element={<ResultView />} />
-              <Route path="/create-course" element={<CreateCourse />} />
-            </Route>
-
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/course-index/:courseId" element={<CourseIndexView />} />
-            <Route path="/course-module/:courseId/:order" element={<CourseModuleView />} />
-            <Route path="/course-quiz/:courseId/:sectionId" element={<CourseQuizView />} />
+        <Route element={<ProtectedRoute />}>
+          <Route path="/onboarding" element={<Onboarding />} />
+          <Route element={<SidebarLayout />}>
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/courses" element={<CoursesList />} />
+            <Route path="/community" element={<Community />} />
+            <Route path="/settings" element={<Settings />} />
           </Route>
-        </Routes>
-      </Router>
-    </EtechProvider>
+
+          <Route element={<Layout />}>
+            <Route path="/generate" element={<GenerationView />} />
+            <Route path="/select-topic" element={<TopicSelectionView />} />
+            <Route path="/result" element={<Result />} />
+            <Route path="/create-course" element={<CreateCourse />} />
+          </Route>
+
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/course-index/:courseId" element={<CourseIndexView />} />
+          <Route path="/course-module/:courseId/:order" element={<CourseModuleView />} />
+          <Route path="/course-quiz/:courseId/:sectionId" element={<CourseQuizView />} />
+        </Route>
+      </Routes>
+    </Router>
   );
 }
