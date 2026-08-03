@@ -98,7 +98,7 @@ export default function Result() {
 
   // Loading messages rotation
   const loadingMessages = [
-    "Contacting Groq AI educational engine...",
+    "Contacting Claude AI educational engine...",
     "Generating comprehensive topic context...",
     "Structuring content for level-appropriate learning...",
     "Applying cognitive accessibility parameters...",
