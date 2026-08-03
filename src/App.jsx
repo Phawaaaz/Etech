@@ -42,8 +42,7 @@ export default function App() {
         <Route path="/" element={<LandingPage />} />
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/login" element={<Login />} />
-        
-        {/* Protected Routes */}
+
         <Route element={<ProtectedRoute />}>
           <Route path="/onboarding" element={<Onboarding />} />
           <Route element={<SidebarLayout />}>
@@ -59,6 +58,7 @@ export default function App() {
             <Route path="/result" element={<Result />} />
             <Route path="/create-course" element={<CreateCourse />} />
           </Route>
+
           <Route path="/profile" element={<Profile />} />
           <Route path="/course-index/:courseId" element={<CourseIndexView />} />
           <Route path="/course-module/:courseId/:order" element={<CourseModuleView />} />

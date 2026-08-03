@@ -1,16 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import useLoginForm from "../hooks/useLoginForm";
 import Logo from "@/components/ui/Logo";
+import { handleGoogleAuth } from "../utils/googleAuth";
 
 export default function Login() {
   const navigate = useNavigate();
-
-  const handleLoginSuccess = (loginData) => {
-    console.log(
-      "Authentication pipeline payload successfully verified:",
-      loginData
-    );
-  };
 
   const {
     loginData,
@@ -19,25 +13,43 @@ export default function Login() {
     handleLoginSubmit,
     isFormValid,
     submitting,
-  } = useLoginForm(handleLoginSuccess);
+  } = useLoginForm();
 
   return (
     <div className="bg-background text-foreground flex min-h-screen items-center justify-center p-4 font-sans select-text relative overflow-hidden w-full">
-      {/* Ambient background decoration */}
       <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[120px] pointer-events-none" />
       <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-secondary/5 rounded-full blur-[120px] pointer-events-none" />
 
       <div className="w-full max-w-md space-y-8 bg-card border border-border p-8 sm:p-10 rounded-3xl shadow-sm relative z-10">
-        
+
         <div className="flex flex-col items-center select-none">
-          <div className="mb-4">
-            <Logo />
-          </div>
-          <h2 className="text-2xl font-black tracking-tight text-zinc-950 uppercase">Welcome Back</h2>
+          <div className="mb-4"><Logo /></div>
+          <h2 className="text-2xl font-black tracking-tight text-zinc-950 dark:text-white uppercase">Welcome Back</h2>
           <p className="mt-2 text-sm text-muted-foreground font-medium">Enter your details to sign in.</p>
         </div>
 
-        <form onSubmit={handleLoginSubmit} className="mt-8 space-y-6">
+        {/* Google Sign In */}
+        <button
+          type="button"
+          onClick={() => handleGoogleAuth(navigate)}
+          className="w-full flex items-center justify-center gap-3 px-4 py-3 rounded-full border border-border bg-card hover:bg-muted transition-all font-semibold text-sm text-foreground shadow-sm hover:shadow-md active:scale-95"
+        >
+          <svg className="w-5 h-5 shrink-0" viewBox="0 0 24 24">
+            <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+            <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+            <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/>
+            <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+          </svg>
+          Continue with Google
+        </button>
+
+        <div className="flex items-center gap-3">
+          <div className="flex-1 h-px bg-border" />
+          <span className="text-xs text-muted-foreground font-semibold uppercase tracking-wider select-none">or</span>
+          <div className="flex-1 h-px bg-border" />
+        </div>
+
+        <form onSubmit={handleLoginSubmit} className="space-y-6">
           <div className="space-y-4">
             <div>
               <label htmlFor="email" className="block text-sm font-semibold uppercase tracking-wider text-muted-foreground text-left mb-1.5 select-none">
@@ -52,13 +64,11 @@ export default function Login() {
                 value={loginData.email}
                 onChange={handleInputChange}
                 disabled={submitting}
-                className={`block w-full rounded-2xl border border-border/80 bg-zinc-50 px-4 py-3 text-foreground placeholder-muted-foreground/60 focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 sm:text-sm font-semibold transition-all shadow-3xs ${
-                  submitting ? "opacity-50 cursor-not-allowed" : ""
-                }`}
+                className={`block w-full rounded-2xl border border-border/80 bg-zinc-50 dark:bg-zinc-900 px-4 py-3 text-foreground placeholder-muted-foreground/60 focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 sm:text-sm font-semibold transition-all ${submitting ? "opacity-50 cursor-not-allowed" : ""}`}
                 placeholder="name@email.com"
               />
               {emailError && (
-                <span className="text-red-500 font-bold text-xs tracking-wide mt-2 block text-left animate-fadeIn">
+                <span className="text-red-500 font-bold text-xs tracking-wide mt-2 block text-left">
                   ⚠️ {emailError}
                 </span>
               )}
@@ -79,9 +89,7 @@ export default function Login() {
                 value={loginData.password}
                 onChange={handleInputChange}
                 disabled={submitting}
-                className={`block w-full rounded-2xl border border-border/80 bg-zinc-50 px-4 py-3 text-foreground placeholder-muted-foreground/60 focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 sm:text-sm font-semibold transition-all shadow-3xs ${
-                  submitting ? "opacity-50 cursor-not-allowed" : ""
-                }`}
+                className={`block w-full rounded-2xl border border-border/80 bg-zinc-50 dark:bg-zinc-900 px-4 py-3 text-foreground placeholder-muted-foreground/60 focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 sm:text-sm font-semibold transition-all ${submitting ? "opacity-50 cursor-not-allowed" : ""}`}
                 placeholder="Password"
               />
             </div>
@@ -92,40 +100,31 @@ export default function Login() {
               type="button"
               onClick={() => navigate("/sign-up")}
               disabled={submitting}
-              className={`text-sm font-bold text-muted-foreground hover:text-foreground hover:underline underline-offset-4 transition-colors cursor-pointer bg-transparent border-none outline-none ${
-                submitting ? "opacity-50 cursor-not-allowed pointer-events-none" : ""
-              }`}
+              className="text-sm font-bold text-muted-foreground hover:text-foreground hover:underline underline-offset-4 transition-colors cursor-pointer bg-transparent border-none outline-none"
             >
               Create account
             </button>
-            <div className="text-sm">
-              <button
-                type="button"
-                disabled={submitting}
-                className={`font-bold text-muted-foreground hover:text-foreground underline underline-offset-4 transition-colors cursor-pointer bg-transparent border-none outline-none ${
-                  submitting ? "opacity-50 cursor-not-allowed pointer-events-none" : ""
-                }`}
-              >
-                Forgot password?
-              </button>
-            </div>
-          </div>
-
-          <div>
             <button
-              type="submit"
-              disabled={!isFormValid || submitting}
-              className={`group relative flex w-full justify-center px-4 py-3.5 text-sm font-bold uppercase tracking-widest transition-all duration-250 hover:-translate-y-0.5 active:translate-y-0 rounded-full shadow-sm select-none cursor-pointer border-none ${
-                !isFormValid || submitting
-                  ? "bg-muted text-muted-foreground/60 cursor-not-allowed border border-transparent"
-                  : "bg-primary text-primary-foreground hover:bg-primary/95 hover:shadow-md"
-              }`}
+              type="button"
+              disabled={submitting}
+              className="text-sm font-bold text-muted-foreground hover:text-foreground underline underline-offset-4 transition-colors cursor-pointer bg-transparent border-none outline-none"
             >
-              {submitting ? "Signing In..." : "Sign In"}
+              Forgot password?
             </button>
           </div>
-        </form>
 
+          <button
+            type="submit"
+            disabled={!isFormValid || submitting}
+            className={`group relative flex w-full justify-center px-4 py-3.5 text-sm font-bold uppercase tracking-widest transition-all duration-250 hover:-translate-y-0.5 active:translate-y-0 rounded-full shadow-sm select-none cursor-pointer border-none ${
+              !isFormValid || submitting
+                ? "bg-muted text-muted-foreground/60 cursor-not-allowed"
+                : "bg-primary text-primary-foreground hover:bg-primary/95 hover:shadow-md"
+            }`}
+          >
+            {submitting ? "Signing In..." : "Sign In"}
+          </button>
+        </form>
       </div>
     </div>
   );

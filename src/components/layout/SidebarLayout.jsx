@@ -1,11 +1,20 @@
 import { useState } from "react";
 import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import Logo from "@/components/ui/Logo";
+import { toast } from "sonner";
 
 export default function SidebarLayout() {
   const navigate = useNavigate();
   const location = useLocation();
   const [isCollapsed, setIsCollapsed] = useState(false);
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("refreshToken");
+    localStorage.removeItem("user");
+    toast.success("Logged out successfully");
+    navigate("/login");
+  };
 
   const menuItems = [
     { id: "dashboard", label: "Dashboard", icon: "M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6", path: "/dashboard" },
@@ -15,6 +24,7 @@ export default function SidebarLayout() {
 
   const bottomItems = [
     { id: "settings", label: "Settings", icon: "M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z", path: "/settings" },
+    { id: "logout", label: "Log Out", icon: "M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4m6 14l5-5m0 0l-5-5m5 5H9", action: "logout" },
   ];
 
   return (
@@ -76,11 +86,11 @@ export default function SidebarLayout() {
             <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground/70 whitespace-nowrap">Preferences</span>
           </div>
           {bottomItems.map((item) => {
-            const isActive = location.pathname.startsWith(item.path);
+            const isActive = item.path ? location.pathname.startsWith(item.path) : false;
             return (
               <button
                 key={item.id}
-                onClick={() => navigate(item.path)}
+                onClick={item.action === "logout" ? handleLogout : () => navigate(item.path)}
                 className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-2xl text-sm font-semibold transition-all duration-200 cursor-pointer overflow-hidden ${
                   isActive
                     ? "bg-primary/10 text-primary"
@@ -106,11 +116,11 @@ export default function SidebarLayout() {
       {/* Mobile Bottom Navigation */}
       <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-card border-t border-border z-50 px-2 py-2 flex justify-around pb-[max(0.5rem,env(safe-area-inset-bottom))] shadow-[0_-4px_15px_rgba(0,0,0,0.03)]">
         {[...menuItems, ...bottomItems].map((item) => {
-          const isActive = location.pathname.startsWith(item.path);
+          const isActive = item.path ? location.pathname.startsWith(item.path) : false;
           return (
             <button
               key={item.id}
-              onClick={() => navigate(item.path)}
+              onClick={item.action === "logout" ? handleLogout : () => navigate(item.path)}
               className={`flex flex-col items-center justify-center p-2 rounded-xl transition-all ${
                 isActive
                   ? "text-primary"

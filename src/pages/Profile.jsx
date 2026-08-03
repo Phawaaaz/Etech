@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import avatar from "@/assets/avatar.svg";
 import Logo from "@/components/ui/Logo";
+import { toast } from "sonner";
 
 export default function Profile() {
   const navigate = useNavigate();
@@ -16,6 +17,7 @@ export default function Profile() {
     localStorage.removeItem("token");
     localStorage.removeItem("refreshToken");
     localStorage.removeItem("user");
+    toast.success("Logged out successfully");
     navigate("/login");
   };
 
