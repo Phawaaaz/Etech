@@ -4,6 +4,10 @@ import Logo from "@/components/ui/Logo";
 import { toast } from "sonner";
 import { handleGoogleAuth } from "../utils/googleAuth";
 
+const BASE_URL = window.location.hostname === "localhost"
+  ? "http://localhost:5000/api"
+  : "https://etechbackend.onrender.com/api";
+
 export default function SignUp() {
   const navigate = useNavigate();
 
@@ -49,7 +53,7 @@ export default function SignUp() {
     setSubmitting(true);
     const signUpToastId = toast.loading("Creating your account...");
 
-    fetch("https://etechbackend.onrender.com/api/auth/register", {
+    fetch(`${BASE_URL}/auth/register`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

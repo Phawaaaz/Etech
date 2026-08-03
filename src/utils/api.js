@@ -1,4 +1,6 @@
-const BASE_URL = "https://etechbackend.onrender.com/api";
+const BASE_URL = window.location.hostname === "localhost"
+  ? "http://localhost:5000/api"
+  : "https://etechbackend.onrender.com/api";
 
 export async function apiFetch(endpoint, options = {}) {
   const token = localStorage.getItem("token");

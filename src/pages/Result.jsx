@@ -3,6 +3,10 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { OctagonXIcon } from "lucide-react";
 
+const BASE_URL = window.location.hostname === "localhost"
+  ? "http://localhost:5000/api"
+  : "https://etechbackend.onrender.com/api";
+
 // A simple local Markdown parser helper for the Text format
 function renderMarkdown(text) {
   if (!text) return null;
@@ -133,7 +137,7 @@ export default function Result() {
       });
     }, 800);
 
-    fetch("https://etechbackend.onrender.com/api/generate", {
+    fetch(`${BASE_URL}/generate`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ format, prompt, topic, level }),

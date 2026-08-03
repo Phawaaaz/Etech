@@ -1,4 +1,6 @@
-const BASE_URL = "https://etechbackend.onrender.com/api";
+const BASE_URL = window.location.hostname === "localhost"
+  ? "http://localhost:5000/api"
+  : "https://etechbackend.onrender.com/api";
 
 export function handleGoogleAuth(navigate) {
   window.location.href = `${BASE_URL}/auth/google`;

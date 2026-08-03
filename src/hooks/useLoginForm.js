@@ -2,6 +2,10 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 
+const BASE_URL = window.location.hostname === "localhost"
+  ? "http://localhost:5000/api"
+  : "https://etechbackend.onrender.com/api";
+
 export default function useLoginForm(onSubmit) {
   const navigate = useNavigate();
   const [loginData, setLoginData] = useState({
@@ -48,7 +52,7 @@ export default function useLoginForm(onSubmit) {
     setSubmitting(true);
     const loginToastId = toast.loading("Verifying credentials...");
 
-    fetch("https://etechbackend.onrender.com/api/auth/login", {
+    fetch(`${BASE_URL}/auth/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email: loginData.email, password: loginData.password }),
